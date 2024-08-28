@@ -117,55 +117,79 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct()
 						      0,
 						      checkoverlaps);
 
-  G4double SD_width = 0.6 * cm; //6mm
-  G4double SD_height = 0.01 * cm; //0.1mm
-  G4int SiPM_N=10;
-  G4double sipm_pos=0;
+  ///// SiPM size
+  G4double SD_width = 0.6 * cm;  // 6mm
+  G4double SD_height = 0.01 * cm;  // 0.1mm
   
-  G4Box* solid_SiPM = new G4Box("solid_sipm",.5*SD_width,.5*SD_width,.5*SD_height);
-  
-  
-  flogical_SiPM = new G4LogicalVolume(solid_SiPM,PlasticSc,"logical_sipm");
-  
-  for(G4int i=0; i<SiPM_N; i++)
-    {
-      
-      //sipm_pos = ( (i+1) * PS_x/(SiPM_N+1) ) - PS_x/2;
-      sipm_pos = ((i+1) *  10 - 55) * cm ;
+  G4int total_SiPM = 40;  
+  G4int num_rows = 4;  // y axis
+  G4double x_spacing = 10 * cm;  
+  G4double y_spacing = 10 * cm;  
+
+  G4Box* solid_SiPM = new G4Box("solid_sipm", 0.5 * SD_width, 0.5 * SD_width, 0.5 * SD_height);
+  flogical_SiPM = new G4LogicalVolume(solid_SiPM, PlasticSc, "logical_sipm");
+
+
+  // (1) 10cm spacing    
+  G4int sipm_placed = 0;
+  for (G4int row = 0; row < num_rows; row++) {
+    for (G4int col = 0; col < total_SiPM / num_rows; col++) {
+      G4double x_pos = (col - (total_SiPM / num_rows) / 2.0 + 0.5) * x_spacing;
+      G4double y_pos = (row - (num_rows / 2.0) + 0.5) * y_spacing;
 
       new G4PVPlacement(0,
-			G4ThreeVector(sipm_pos,  0.15 * m , ( 0.5 * PS_z - 0.5 * SD_height) ),
-			flogical_SiPM,
-			"SiPM_Phy",
-			logical_PS,
-			false,
-			i);
-      
-      new G4PVPlacement(0,
-			G4ThreeVector(sipm_pos,  0.05 * m , ( 0.5 * PS_z - 0.5 * SD_height) ),
-			flogical_SiPM,
-			"SiPM_Phy",
-			logical_PS,
-			false,
-			i+10);
+        G4ThreeVector(x_pos, y_pos, (0.5 * PS_z - 0.5 * SD_height)),
+        flogical_SiPM,
+        "SiPM_Phy",
+        logical_PS,
+        false,
+        sipm_placed);
+        
+      sipm_placed++;
 
-      new G4PVPlacement(0,
-			G4ThreeVector(sipm_pos,  -0.05 * m , ( 0.5 * PS_z - 0.5 * SD_height) ),
-			flogical_SiPM,
-			"SiPM_Phy",
-			logical_PS,
-			false,
-			i+20);
-
-      new G4PVPlacement(0,
-			G4ThreeVector(sipm_pos,  -0.15 * m , ( 0.5 * PS_z - 0.5 * SD_height) ),
-			flogical_SiPM,
-			"SiPM_Phy",
-			logical_PS,
-			false,
-			i+30);
-          
+      // 만약 총 SiPM 수에 도달하면 배치 종료
+      if (sipm_placed >= total_SiPM) break;
     }
+    if (sipm_placed >= total_SiPM) break;
+  }
+
+  // (2) maximum spacing
+  /*
+  
+  G4int sipm_placed = 0;
+  G4double max_x = PS_x / 2.0 - SD_width / 2.0;
+  G4double min_x = -max_x;
+  G4double max_y = PS_y / 2.0 - SD_width / 2.0;
+  G4double min_y = -max_y;
+
+  G4double x_spacing_max = PS_x / (total_SiPM / num_rows);  // 최대 가로 간격 계산
+  G4double y_spacing_max = PS_y / num_rows;  // 최대 세로 간격 계산
+    
+  for (G4int row = 0; row < num_rows; row++) {
+    for (G4int col = 0; col < total_SiPM / num_rows; col++) {
+      G4double x_pos = min_x + (col + 0.5) * x_spacing_max;
+      G4double y_pos = min_y + (row + 0.5) * y_spacing_max;
+
+      new G4PVPlacement(0,
+        G4ThreeVector(x_pos, y_pos, (0.5 * PS_z - 0.5 * SD_height)),
+        flogical_SiPM,
+        "SiPM_Phy_MaxSpacing",
+        logical_PS,
+        false,
+        sipm_placed);
+        
+      sipm_placed++;
+
+      // 만약 총 SiPM 수에 도달하면 배치 종료
+      if (sipm_placed >= total_SiPM) break;
+    }
+    if (sipm_placed >= total_SiPM) break;
+  }
+  */
+  
+
+
+
 
   /////Surface 
 
