@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/RunAction.cc.o: \
-  /Users/kimkuhani/sipm_array/src/RunAction.cc \
-  /Users/kimkuhani/sipm_array/include/RunAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/src/RunAction.cc \
+  /Users/kimkuhani/SiPM_array_muon/include/RunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserRunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Types.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GlobalConfig.hh \
@@ -1329,7 +1329,7 @@ CMakeFiles/SiPM.dir/src/RunAction.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.icc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SystemOfUnits.hh \
-  /Users/kimkuhani/sipm_array/include/PrimaryGeneratorAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/PrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSource.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SingleParticleSource.hh \
@@ -1343,7 +1343,7 @@ CMakeFiles/SiPM.dir/src/RunAction.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SPSEneDistribution.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSourceMessenger.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSourceData.hh \
-  /Users/kimkuhani/sipm_array/include/Construction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PVPlacement.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4NistManager.hh \

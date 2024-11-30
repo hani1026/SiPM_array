@@ -11,6 +11,7 @@
 #include "G4OpticalSurface.hh"
 #include "G4LogicalBorderSurface.hh"
 #include "G4VisAttributes.hh"
+#include <vector>
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -36,6 +37,7 @@ private:
   void SetupVisualizationAttributes();
 
   // 멤버 변수
+  std::vector<G4VisAttributes*> fVisAttributes;
   G4LogicalVolume* flogical_SiPM;
   G4LogicalVolume* fLogicalESR;
   G4LogicalVolume* fLogicalPS;
@@ -43,12 +45,14 @@ private:
   G4Material* fMat_Air;
   G4Material* fMat_ESR;
   G4Material* fPlasticSc;
+  G4Material* fSiPM_Mat;
   
   const G4bool fCheckOverlaps = true;
   G4LogicalBorderSurface* fESR_PS_Surface;
   G4LogicalBorderSurface* fPS_ESR_Surface;
   G4VPhysicalVolume* fPhysical_PS;
   G4VPhysicalVolume* fPhysical_ESR;
+  G4VPhysicalVolume* fPhysical_SiPM;
 };
 
 #endif

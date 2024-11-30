@@ -9,4 +9,4 @@
 
 #
 
-/run/beamOn 10 cylinder_photon.txt
+/run/beamOn 100 beam.txt

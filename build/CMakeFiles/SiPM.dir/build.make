@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/kimkuhani/sipm_array
+CMAKE_SOURCE_DIR = /Users/kimkuhani/SiPM_array_muon
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/kimkuhani/sipm_array/build
+CMAKE_BINARY_DIR = /Users/kimkuhani/SiPM_array_muon/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/SiPM.dir/depend.make
@@ -70,130 +70,130 @@ include CMakeFiles/SiPM.dir/progress.make
 include CMakeFiles/SiPM.dir/flags.make
 
 CMakeFiles/SiPM.dir/SiPM.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/sipm_array/SiPM.cc
+CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array_muon/SiPM.cc
 CMakeFiles/SiPM.dir/SiPM.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SiPM.dir/SiPM.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/SiPM.cc.o -MF CMakeFiles/SiPM.dir/SiPM.cc.o.d -o CMakeFiles/SiPM.dir/SiPM.cc.o -c /Users/kimkuhani/sipm_array/SiPM.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/SiPM.dir/SiPM.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/SiPM.cc.o -MF CMakeFiles/SiPM.dir/SiPM.cc.o.d -o CMakeFiles/SiPM.dir/SiPM.cc.o -c /Users/kimkuhani/SiPM_array_muon/SiPM.cc
 
 CMakeFiles/SiPM.dir/SiPM.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/SiPM.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/SiPM.cc > CMakeFiles/SiPM.dir/SiPM.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/SiPM.cc > CMakeFiles/SiPM.dir/SiPM.cc.i
 
 CMakeFiles/SiPM.dir/SiPM.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/SiPM.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/SiPM.cc -o CMakeFiles/SiPM.dir/SiPM.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/SiPM.cc -o CMakeFiles/SiPM.dir/SiPM.cc.s
 
 CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: /Users/kimkuhani/sipm_array/src/ActionInitialization.cc
+CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: /Users/kimkuhani/SiPM_array_muon/src/ActionInitialization.cc
 CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o -MF CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o.d -o CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o -c /Users/kimkuhani/sipm_array/src/ActionInitialization.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o -MF CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o.d -o CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/ActionInitialization.cc
 
 CMakeFiles/SiPM.dir/src/ActionInitialization.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/ActionInitialization.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/ActionInitialization.cc > CMakeFiles/SiPM.dir/src/ActionInitialization.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/ActionInitialization.cc > CMakeFiles/SiPM.dir/src/ActionInitialization.cc.i
 
 CMakeFiles/SiPM.dir/src/ActionInitialization.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/ActionInitialization.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/ActionInitialization.cc -o CMakeFiles/SiPM.dir/src/ActionInitialization.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/ActionInitialization.cc -o CMakeFiles/SiPM.dir/src/ActionInitialization.cc.s
 
 CMakeFiles/SiPM.dir/src/Construction.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/Construction.cc.o: /Users/kimkuhani/sipm_array/src/Construction.cc
+CMakeFiles/SiPM.dir/src/Construction.cc.o: /Users/kimkuhani/SiPM_array_muon/src/Construction.cc
 CMakeFiles/SiPM.dir/src/Construction.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SiPM.dir/src/Construction.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/Construction.cc.o -MF CMakeFiles/SiPM.dir/src/Construction.cc.o.d -o CMakeFiles/SiPM.dir/src/Construction.cc.o -c /Users/kimkuhani/sipm_array/src/Construction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/SiPM.dir/src/Construction.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/Construction.cc.o -MF CMakeFiles/SiPM.dir/src/Construction.cc.o.d -o CMakeFiles/SiPM.dir/src/Construction.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/Construction.cc
 
 CMakeFiles/SiPM.dir/src/Construction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/Construction.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/Construction.cc > CMakeFiles/SiPM.dir/src/Construction.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/Construction.cc > CMakeFiles/SiPM.dir/src/Construction.cc.i
 
 CMakeFiles/SiPM.dir/src/Construction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/Construction.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/Construction.cc -o CMakeFiles/SiPM.dir/src/Construction.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/Construction.cc -o CMakeFiles/SiPM.dir/src/Construction.cc.s
 
 CMakeFiles/SiPM.dir/src/EventAction.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/EventAction.cc.o: /Users/kimkuhani/sipm_array/src/EventAction.cc
+CMakeFiles/SiPM.dir/src/EventAction.cc.o: /Users/kimkuhani/SiPM_array_muon/src/EventAction.cc
 CMakeFiles/SiPM.dir/src/EventAction.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SiPM.dir/src/EventAction.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/EventAction.cc.o -MF CMakeFiles/SiPM.dir/src/EventAction.cc.o.d -o CMakeFiles/SiPM.dir/src/EventAction.cc.o -c /Users/kimkuhani/sipm_array/src/EventAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/SiPM.dir/src/EventAction.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/EventAction.cc.o -MF CMakeFiles/SiPM.dir/src/EventAction.cc.o.d -o CMakeFiles/SiPM.dir/src/EventAction.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/EventAction.cc
 
 CMakeFiles/SiPM.dir/src/EventAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/EventAction.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/EventAction.cc > CMakeFiles/SiPM.dir/src/EventAction.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/EventAction.cc > CMakeFiles/SiPM.dir/src/EventAction.cc.i
 
 CMakeFiles/SiPM.dir/src/EventAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/EventAction.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/EventAction.cc -o CMakeFiles/SiPM.dir/src/EventAction.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/EventAction.cc -o CMakeFiles/SiPM.dir/src/EventAction.cc.s
 
 CMakeFiles/SiPM.dir/src/PhysicsList.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/PhysicsList.cc.o: /Users/kimkuhani/sipm_array/src/PhysicsList.cc
+CMakeFiles/SiPM.dir/src/PhysicsList.cc.o: /Users/kimkuhani/SiPM_array_muon/src/PhysicsList.cc
 CMakeFiles/SiPM.dir/src/PhysicsList.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SiPM.dir/src/PhysicsList.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/PhysicsList.cc.o -MF CMakeFiles/SiPM.dir/src/PhysicsList.cc.o.d -o CMakeFiles/SiPM.dir/src/PhysicsList.cc.o -c /Users/kimkuhani/sipm_array/src/PhysicsList.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/SiPM.dir/src/PhysicsList.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/PhysicsList.cc.o -MF CMakeFiles/SiPM.dir/src/PhysicsList.cc.o.d -o CMakeFiles/SiPM.dir/src/PhysicsList.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/PhysicsList.cc
 
 CMakeFiles/SiPM.dir/src/PhysicsList.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/PhysicsList.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/PhysicsList.cc > CMakeFiles/SiPM.dir/src/PhysicsList.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/PhysicsList.cc > CMakeFiles/SiPM.dir/src/PhysicsList.cc.i
 
 CMakeFiles/SiPM.dir/src/PhysicsList.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/PhysicsList.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/PhysicsList.cc -o CMakeFiles/SiPM.dir/src/PhysicsList.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/PhysicsList.cc -o CMakeFiles/SiPM.dir/src/PhysicsList.cc.s
 
 CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o: /Users/kimkuhani/sipm_array/src/PrimaryGeneratorAction.cc
+CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o: /Users/kimkuhani/SiPM_array_muon/src/PrimaryGeneratorAction.cc
 CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o -MF CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o.d -o CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o -c /Users/kimkuhani/sipm_array/src/PrimaryGeneratorAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o -MF CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o.d -o CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/PrimaryGeneratorAction.cc
 
 CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/PrimaryGeneratorAction.cc > CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/PrimaryGeneratorAction.cc > CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.i
 
 CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/PrimaryGeneratorAction.cc -o CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/PrimaryGeneratorAction.cc -o CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.s
 
 CMakeFiles/SiPM.dir/src/RunAction.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/RunAction.cc.o: /Users/kimkuhani/sipm_array/src/RunAction.cc
+CMakeFiles/SiPM.dir/src/RunAction.cc.o: /Users/kimkuhani/SiPM_array_muon/src/RunAction.cc
 CMakeFiles/SiPM.dir/src/RunAction.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SiPM.dir/src/RunAction.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/RunAction.cc.o -MF CMakeFiles/SiPM.dir/src/RunAction.cc.o.d -o CMakeFiles/SiPM.dir/src/RunAction.cc.o -c /Users/kimkuhani/sipm_array/src/RunAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/SiPM.dir/src/RunAction.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/RunAction.cc.o -MF CMakeFiles/SiPM.dir/src/RunAction.cc.o.d -o CMakeFiles/SiPM.dir/src/RunAction.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/RunAction.cc
 
 CMakeFiles/SiPM.dir/src/RunAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/RunAction.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/RunAction.cc > CMakeFiles/SiPM.dir/src/RunAction.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/RunAction.cc > CMakeFiles/SiPM.dir/src/RunAction.cc.i
 
 CMakeFiles/SiPM.dir/src/RunAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/RunAction.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/RunAction.cc -o CMakeFiles/SiPM.dir/src/RunAction.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/RunAction.cc -o CMakeFiles/SiPM.dir/src/RunAction.cc.s
 
 CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: /Users/kimkuhani/sipm_array/src/SiPMSensitiveDetector.cc
+CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: /Users/kimkuhani/SiPM_array_muon/src/SiPMSensitiveDetector.cc
 CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o -MF CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o.d -o CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o -c /Users/kimkuhani/sipm_array/src/SiPMSensitiveDetector.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o -MF CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o.d -o CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/SiPMSensitiveDetector.cc
 
 CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/SiPMSensitiveDetector.cc > CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/SiPMSensitiveDetector.cc > CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.i
 
 CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/SiPMSensitiveDetector.cc -o CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/SiPMSensitiveDetector.cc -o CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.s
 
 CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: CMakeFiles/SiPM.dir/flags.make
-CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: /Users/kimkuhani/sipm_array/src/SteppingAction.cc
+CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: /Users/kimkuhani/SiPM_array_muon/src/SteppingAction.cc
 CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: CMakeFiles/SiPM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/SiPM.dir/src/SteppingAction.cc.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/SteppingAction.cc.o -MF CMakeFiles/SiPM.dir/src/SteppingAction.cc.o.d -o CMakeFiles/SiPM.dir/src/SteppingAction.cc.o -c /Users/kimkuhani/sipm_array/src/SteppingAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/SiPM.dir/src/SteppingAction.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/SiPM.dir/src/SteppingAction.cc.o -MF CMakeFiles/SiPM.dir/src/SteppingAction.cc.o.d -o CMakeFiles/SiPM.dir/src/SteppingAction.cc.o -c /Users/kimkuhani/SiPM_array_muon/src/SteppingAction.cc
 
 CMakeFiles/SiPM.dir/src/SteppingAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/SiPM.dir/src/SteppingAction.cc.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/sipm_array/src/SteppingAction.cc > CMakeFiles/SiPM.dir/src/SteppingAction.cc.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/kimkuhani/SiPM_array_muon/src/SteppingAction.cc > CMakeFiles/SiPM.dir/src/SteppingAction.cc.i
 
 CMakeFiles/SiPM.dir/src/SteppingAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/SiPM.dir/src/SteppingAction.cc.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/sipm_array/src/SteppingAction.cc -o CMakeFiles/SiPM.dir/src/SteppingAction.cc.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/kimkuhani/SiPM_array_muon/src/SteppingAction.cc -o CMakeFiles/SiPM.dir/src/SteppingAction.cc.s
 
 # Object files for target SiPM
 SiPM_OBJECTS = \
@@ -269,7 +269,7 @@ SiPM: /opt/geant4-v10.7.4/install/lib/libG4global.dylib
 SiPM: /opt/geant4-v10.7.4/install/lib/libG4clhep.dylib
 SiPM: /opt/geant4-v10.7.4/install/lib/libG4ptl.0.0.2.dylib
 SiPM: CMakeFiles/SiPM.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kimkuhani/sipm_array/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable SiPM"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/kimkuhani/SiPM_array_muon/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable SiPM"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/SiPM.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -281,6 +281,6 @@ CMakeFiles/SiPM.dir/clean:
 .PHONY : CMakeFiles/SiPM.dir/clean
 
 CMakeFiles/SiPM.dir/depend:
-	cd /Users/kimkuhani/sipm_array/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/kimkuhani/sipm_array /Users/kimkuhani/sipm_array /Users/kimkuhani/sipm_array/build /Users/kimkuhani/sipm_array/build /Users/kimkuhani/sipm_array/build/CMakeFiles/SiPM.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/kimkuhani/SiPM_array_muon/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/kimkuhani/SiPM_array_muon /Users/kimkuhani/SiPM_array_muon /Users/kimkuhani/SiPM_array_muon/build /Users/kimkuhani/SiPM_array_muon/build /Users/kimkuhani/SiPM_array_muon/build/CMakeFiles/SiPM.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/SiPM.dir/depend
 

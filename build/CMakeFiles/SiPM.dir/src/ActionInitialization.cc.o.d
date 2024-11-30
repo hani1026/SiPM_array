@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
-  /Users/kimkuhani/sipm_array/src/ActionInitialization.cc \
-  /Users/kimkuhani/sipm_array/include/ActionInitialization.hh \
+  /Users/kimkuhani/SiPM_array_muon/src/ActionInitialization.cc \
+  /Users/kimkuhani/SiPM_array_muon/include/ActionInitialization.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserActionInitialization.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4String.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/cstring \
@@ -832,7 +832,7 @@ CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/sstream \
   /opt/geant4-v10.7.4/install/include/Geant4/tls.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4String.icc \
-  /Users/kimkuhani/sipm_array/include/PrimaryGeneratorAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/PrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSource.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \
@@ -1072,7 +1072,7 @@ CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ApplicationState.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSourceData.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SystemOfUnits.hh \
-  /Users/kimkuhani/sipm_array/include/RunAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/RunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserRunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4RunManager.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/rundefs.hh \
@@ -1345,10 +1345,10 @@ CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VNotifier.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.icc \
-  /Users/kimkuhani/sipm_array/include/EventAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/EventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserEventAction.hh \
-  /Users/kimkuhani/sipm_array/include/SteppingAction.hh \
-  /Users/kimkuhani/sipm_array/include/SiPMSensitiveDetector.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/SteppingAction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/SiPMSensitiveDetector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VSensitiveDetector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VHit.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VReadOutGeometry.hh \
@@ -1358,7 +1358,7 @@ CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SDManager.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SDStructure.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4HCtable.hh \
-  /Users/kimkuhani/sipm_array/include/Construction.hh \
+  /Users/kimkuhani/SiPM_array_muon/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PVPlacement.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4NistManager.hh \

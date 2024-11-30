@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/Construction.cc.o: \
-  /Users/kimkuhani/sipm_array/src/Construction.cc \
-  /Users/kimkuhani/sipm_array/include/Construction.hh \
+  /Users/kimkuhani/SiPM_array_muon/src/Construction.cc \
+  /Users/kimkuhani/SiPM_array_muon/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ios.hh \
@@ -1032,4 +1032,7 @@ CMakeFiles/SiPM.dir/src/Construction.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/graphics_reps_defs.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Colour.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Color.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4VisAttributes.icc
+  /opt/geant4-v10.7.4/install/include/Geant4/G4VisAttributes.icc \
+  /opt/geant4-v10.7.4/install/include/Geant4/G4PhysicalVolumeStore.hh \
+  /opt/geant4-v10.7.4/install/include/Geant4/G4VStoreNotifier.hh \
+  /opt/geant4-v10.7.4/install/include/Geant4/G4VNotifier.hh

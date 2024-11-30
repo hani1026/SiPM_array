@@ -39,6 +39,11 @@ void SteppingAction::ProcessSiPMHit(const G4Step* step)
 
   if(volumeName.substr(0,4) != "SiPM") return;
 
+  if (volumeName.length() < 5) {
+    ReportInvalidSiPMName(volumeName);
+    return;
+  }
+
   try {
     G4int sipmID = std::stoi(volumeName.substr(5));
     if(IsValidSiPMID(sipmID)) {

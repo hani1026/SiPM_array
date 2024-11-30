@@ -22,6 +22,9 @@ public:
   virtual void EndOfRunAction(const G4Run*) override;
   
   void printEventproc();
+  
+  // 이벤트 데이터 저장을 위한 새로운 메서드
+  void SaveEventData();
 
   // 데이터 추가 메서드
   void AddStartPosition(G4double x, G4double y, G4double z) {
@@ -53,12 +56,6 @@ private:
   void ResetRunVariables();
   void ProcessEndOfRun(const G4Run* run);
   void PrintRunSummary();
-  
-  // 데이터 저장 관련 메서드
-  void SaveRunData();
-  void SaveBasicData(G4AnalysisManager* analysisManager);
-  void SaveSiPMData(G4AnalysisManager* analysisManager);
-  void SavePositionData(G4AnalysisManager* analysisManager);
 
   // 멤버 변수
   G4String fFileName;
