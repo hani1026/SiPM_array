@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-project(HawlSIM)
+project(SiPM)
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
 
@@ -25,11 +25,11 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
 
-add_executable(Hawl Hawl.cc ${sources} ${headers})
-target_link_libraries(Hawl ${Geant4_LIBRARIES})
+add_executable(SiPM SiPM.cc ${sources} ${headers})
+target_link_libraries(SiPM ${Geant4_LIBRARIES})
 
 
-set(Hawl_SCRIPTS
+set(SiPM_SCRIPTS
   
   init_vis.mac
   gun.mac
@@ -37,7 +37,7 @@ set(Hawl_SCRIPTS
   
   )
 
-foreach(_script ${Hawl_SCRIPTS})
+foreach(_script ${_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -45,4 +45,4 @@ foreach(_script ${Hawl_SCRIPTS})
     )
 endforeach()
 
-add_custom_target(HawlSIM DEPENDS Hawl)
+

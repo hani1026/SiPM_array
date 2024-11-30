@@ -5,20 +5,39 @@
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 
-
 PrimaryGeneratorAction::PrimaryGeneratorAction()
-  : G4VUserPrimaryGeneratorAction(),fParticleGun(0)
+  : G4VUserPrimaryGeneratorAction(),
+    fParticleGun(nullptr)
 {
-  fParticleGun = new G4GeneralParticleSource();
+  InitializeParticleGun();
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
-  delete fParticleGun;
+  DeleteParticleGun();
+}
+
+void PrimaryGeneratorAction::InitializeParticleGun()
+{
+  fParticleGun = new G4GeneralParticleSource();
+}
+
+void PrimaryGeneratorAction::DeleteParticleGun()
+{
+  if (fParticleGun) {
+    delete fParticleGun;
+    fParticleGun = nullptr;
+  }
 }
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
+  if (!fParticleGun) {
+    G4Exception("PrimaryGeneratorAction::GeneratePrimaries",
+                "MyCode004", FatalException,
+                "Particle gun is not initialized!");
+    return;
+  }
+  
   fParticleGun->GeneratePrimaryVertex(anEvent);
-
 }

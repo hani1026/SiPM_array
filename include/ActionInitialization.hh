@@ -1,28 +1,31 @@
+// ActionInitialization.hh
 #ifndef ActionInitialization_h
 #define ActionInitialization_h
 
 #include "G4VUserActionInitialization.hh"
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
-#include "EventAction.hh"
-#include "SteppingAction.hh"
+#include "G4String.hh"
 
-/// Action initialization class.
+class RunAction;
+class EventAction;
+class SiPMSensitiveDetector;
 
-class ActionInitialization : public G4VUserActionInitialization
-{
+class ActionInitialization : public G4VUserActionInitialization {
 public:
-
   ActionInitialization(G4String fileName);
-  ~ActionInitialization() override;
+  virtual ~ActionInitialization();
 
-  virtual void BuildForMaster() const; 
-  virtual void Build() const;
-  
+  virtual void BuildForMaster() const override;
+  virtual void Build() const override;
+
 private:
-  
-  G4String fFileName;
+  void SetupGeneratorAction() const;
+  RunAction* SetupRunAction() const;
+  EventAction* SetupEventAction(RunAction* runAction) const;
+  void SetupSteppingAction(EventAction* eventAction) const;
+  void SetupSensitiveDetector(EventAction* eventAction) const;
+  void AssignSensitiveDetector(SiPMSensitiveDetector* sipmSD) const;
 
+  G4String fFileName;
 };
 
 #endif

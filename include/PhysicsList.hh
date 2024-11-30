@@ -7,8 +7,11 @@ class MyPhysicsList : public G4VModularPhysicsList
 {
 public:
   MyPhysicsList();
-  ~MyPhysicsList();
+  virtual ~MyPhysicsList();
 
+private:
+  void InitializePhysics();
+  virtual void SetCuts() override;
 };
 
 #endif

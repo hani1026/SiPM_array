@@ -1,50 +1,57 @@
+// EventAction.hh
 #ifndef EventAction_h
 #define EventAction_h
 
 #include "G4UserEventAction.hh"
+#include "G4ThreeVector.hh"
+#include <vector>
 
-#include "RunAction.hh"
-#include "G4UserRunAction.hh"
-#include "G4Event.hh"
-#include "G4RunManager.hh"
-#include "g4root.hh"
+class RunAction;
 
 class EventAction : public G4UserEventAction
 {
 public:
   EventAction(RunAction* runAction);
-  ~EventAction() override;
-  
-  void BeginOfEventAction(const G4Event* event) override;
-  void EndOfEventAction(const G4Event* event) override;
-    
+  virtual ~EventAction();
 
-  void AddCount_WholePhoton(G4int Count1) { fCount1 += Count1; }
+  virtual void BeginOfEventAction(const G4Event*) override;
+  virtual void EndOfEventAction(const G4Event*) override;
 
-  void AddCount_WholeSiPM(G4int Count2) {fCount2 += Count2;}
-
-  void AddCount_SiPM(G4int N[40], G4int P)
-  {
-    N[P] += 1;
+  // 데이터 추가 메서드
+  void AddCount_SiPM(G4int sipmID);
+  void AddStartPosition(G4double x, G4double y, G4double z) {
+    fStartX += x;
+    fStartY += y;
+    fStartZ += z;
+    fPhotonCount += 1.0;
+  }
+  void AddPhotonPosition(const G4ThreeVector& pos) {
+    fPhotonPositions.push_back(pos);
   }
 
-  void AddCount_length(G4int Count3) { fCount3 += Count3; }
-  void AddXposition(G4int Count4) { xpos = Count4; }
-  void AddYposition(G4int Count5) { ypos = Count5; }
-  void AddZposition(G4int Count6) { zpos = Count6; }
-  
-  G4int f_SiPM_Count[40] = {0,};
-
 private:
-  RunAction* fRunAction = nullptr;
-  G4int   fCount1 = 0;    
-  G4int   fCount2 = 0;
-  G4int   fCount3 = 0;
-  G4int   xpos = 0;
-  G4int   ypos = 0;
-  G4int   zpos = 0;
-  
-  G4int   fEventID=0;
+  // 초기화 메서드
+  void ResetEventVariables();
+  void ResetCounters();
+
+  // 이벤트 처리 메서드
+  void ProcessEventData();
+  void CalculateAveragePositions();
+  void UpdateRunAction();
+  void PrintEventProgress();
+
+  // 유효성 검사 메서드
+  bool IsValidSiPMID(G4int sipmID);
+  void ReportInvalidSiPMID(G4int sipmID);
+
+  // 멤버 변수
+  RunAction* fRunAction;
+  std::vector<G4ThreeVector> fPhotonPositions;
+  G4double fStartX;
+  G4double fStartY;
+  G4double fStartZ;
+  G4double fPhotonCount;
+  G4int f_SiPM_Count[40];
 };
 
 #endif

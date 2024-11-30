@@ -1,46 +1,102 @@
+// EventAction.cc
 #include "EventAction.hh"
+#include "RunAction.hh"
+#include "G4Event.hh"
+#include "G4RunManager.hh"
 
-EventAction::EventAction(RunAction * runAction)
-  : fRunAction(runAction)
-{}
+EventAction::EventAction(RunAction* runAction)
+  : G4UserEventAction(), 
+    fRunAction(runAction),
+    fStartX(0.0),
+    fStartY(0.0),
+    fStartZ(0.0),
+    fPhotonCount(0.0)
+{
+  ResetCounters();
+}
 
 EventAction::~EventAction()
 {}
 
 void EventAction::BeginOfEventAction(const G4Event*)
 {
-  fCount1 = 0;
-  fCount2 = 0;
-  fCount3 = 0;
-  xpos = 0;
-  ypos = 0;
-  zpos = 0;
-    
-  for(int i=0;i<40;i++){
-    f_SiPM_Count[i] = {0,};
-  }
+  ResetEventVariables();
+}
+
+void EventAction::ResetEventVariables()
+{
+  fStartX = 0.0;
+  fStartY = 0.0;
+  fStartZ = 0.0;
+  fPhotonCount = 0.0;
+  ResetCounters();
+  fPhotonPositions.clear();
+}
+
+void EventAction::ResetCounters()
+{
+  std::fill_n(f_SiPM_Count, 40, 0);
 }
 
 void EventAction::EndOfEventAction(const G4Event*)
 {
-  fEventID = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  ProcessEventData();
+  UpdateRunAction();
+  PrintEventProgress();
+}
 
-  analysisManager->FillNtupleDColumn(0, fEventID);
+void EventAction::ProcessEventData()
+{
+  // 이벤트 데이터 처리 로직
+  CalculateAveragePositions();
+}
 
-  for(G4int i=0; i<40; i++){
-    analysisManager->FillNtupleDColumn(i+1, f_SiPM_Count[i]);    
+void EventAction::CalculateAveragePositions()
+{
+  if (fPhotonCount > 0) {
+    fStartX /= fPhotonCount;
+    fStartY /= fPhotonCount;
+    fStartZ /= fPhotonCount;
   }
-  analysisManager->FillNtupleDColumn(41, fCount1);
-  analysisManager->FillNtupleDColumn(42, fCount2);
-  analysisManager->FillNtupleDColumn(43, fCount3 / (fCount1));
+}
 
+void EventAction::UpdateRunAction()
+{
+  // RunAction에 데이터 전달
+  fRunAction->AddStartPosition(fStartX, fStartY, fStartZ);
+  fRunAction->AddSiPMCounts(f_SiPM_Count);
 
-  analysisManager->FillNtupleDColumn(44, xpos);
-  analysisManager->FillNtupleDColumn(45, ypos);
-  analysisManager->FillNtupleDColumn(46, zpos);
-      
-  analysisManager->AddNtupleRow();  
+  for (const auto& pos : fPhotonPositions) {
+    fRunAction->AddPhotonPosition(pos);
+  }
+}
+
+void EventAction::PrintEventProgress()
+{
+  // 이벤트 진행 상황 출력
   fRunAction->printEventproc();
 }
+
+void EventAction::AddCount_SiPM(G4int sipmID)
+{
+  if (IsValidSiPMID(sipmID)) {
+    f_SiPM_Count[sipmID]++;
+  } else {
+    ReportInvalidSiPMID(sipmID);
+  }
+}
+
+bool EventAction::IsValidSiPMID(G4int sipmID)
+{
+  return (sipmID >= 0 && sipmID < 40);
+}
+
+void EventAction::ReportInvalidSiPMID(G4int sipmID)
+{
+  G4ExceptionDescription msg;
+  msg << "Invalid SiPM ID: " << sipmID;
+  G4Exception("EventAction::AddCount_SiPM",
+              "MyCode003", JustWarning, msg);
+}
+
 

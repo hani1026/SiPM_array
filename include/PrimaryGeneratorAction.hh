@@ -4,9 +4,8 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4GeneralParticleSource.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4GeneralParticleSource.hh"
 
-class G4GeneralParicleSource;
+class G4GeneralParticleSource;
 class G4Event;
 
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
@@ -18,7 +17,10 @@ public:
   virtual void GeneratePrimaries(G4Event*) override;
 
 private:
-  G4GeneralParticleSource *fParticleGun;
+  void InitializeParticleGun();
+  void DeleteParticleGun();
+
+  G4GeneralParticleSource* fParticleGun;
 };
 
 #endif

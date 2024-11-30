@@ -1,0 +1,3 @@
+/Users/kimkuhani/sipm_array/build/CMakeFiles/SiPM.dir
+/Users/kimkuhani/sipm_array/build/CMakeFiles/edit_cache.dir
+/Users/kimkuhani/sipm_array/build/CMakeFiles/rebuild_cache.dir

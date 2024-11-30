@@ -1,59 +1,72 @@
-#include "SteppingAction.hh"
+// SteppingAction.cc                                                                                                                                                                             
 
-SteppingAction::SteppingAction(EventAction * eventAction): fEventAction(eventAction)
+#include "SteppingAction.hh"
+#include "G4Step.hh"
+#include "G4Track.hh"
+#include "G4ParticleDefinition.hh"
+#include "G4LogicalVolume.hh"
+#include "G4String.hh"
+#include "G4UnitsTable.hh"
+#include "G4Exception.hh"
+
+#include <iostream> // 디버그 출력을 위해 추가                                                                                                                                                   
+
+SteppingAction::SteppingAction(EventAction* eventAction)
+  : G4UserSteppingAction(), fEventAction(eventAction)
 {}
 
 SteppingAction::~SteppingAction()
 {}
 
-void SteppingAction::UserSteppingAction(const G4Step* aStep)
+void SteppingAction::UserSteppingAction(const G4Step* step)
 {
- 
-  if (!fSiPMScoringVolume){
-    const MyDetectorConstruction* detConstruction
-        = static_cast<const MyDetectorConstruction*>
-      (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+  if (!IsOpticalPhoton(step)) return;
+  
+  ProcessSiPMHit(step);
+  RecordStartPosition(step);
+}
 
-    fSiPMScoringVolume = detConstruction->GetSiPMVolume();
-  }
+bool SteppingAction::IsOpticalPhoton(const G4Step* step)
+{
+  G4Track* track = step->GetTrack();
+  return (track->GetDefinition()->GetParticleName() == "opticalphoton");
+}
 
-  G4RootAnalysisManager* analysisManager = G4RootAnalysisManager::Instance();
-  G4double stepLength = 0. ;
-  stepLength = aStep->GetStepLength()/CLHEP::cm;
-  fEventAction->AddCount_length(stepLength);
-  
-  if(aStep->GetTrack()->GetCurrentStepNumber() == 1)
-    {
-  
-      fEventAction->AddCount_WholePhoton(1);
-      G4double xposition = aStep->GetPreStepPoint()->GetPosition().x();
-      G4double yposition = aStep->GetPreStepPoint()->GetPosition().y();
-      G4double zposition = aStep->GetPreStepPoint()->GetPosition().z();
-      fEventAction->AddXposition(xposition);
-      fEventAction->AddYposition(yposition);
-      fEventAction->AddZposition(zposition);
-    } 
-  
-  
-  G4LogicalVolume* volume = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+void SteppingAction::ProcessSiPMHit(const G4Step* step)
+{
+  G4VPhysicalVolume* physVol = step->GetPreStepPoint()->GetTouchable()->GetVolume();
+  G4String volumeName = physVol->GetName();
 
-  if (volume != fSiPMScoringVolume)
-    {
-      return;
-    } 
+  if(volumeName.substr(0,4) != "SiPM") return;
 
-  G4int copyNo = 0;
-  
-  if (volume == fSiPMScoringVolume)
-    {
-  
-      copyNo = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetCopyNo();  
-      fEventAction->AddCount_SiPM(fEventAction->f_SiPM_Count, copyNo); 
-      fEventAction->AddCount_WholeSiPM(1);
-  
-      aStep->GetTrack()->SetTrackStatus(fStopAndKill); 
+  try {
+    G4int sipmID = std::stoi(volumeName.substr(5));
+    if(IsValidSiPMID(sipmID)) {
+      fEventAction->AddCount_SiPM(sipmID);
     }
+  } catch (const std::exception& e) {
+    ReportInvalidSiPMName(volumeName);
+  }
+}
 
+bool SteppingAction::IsValidSiPMID(G4int sipmID)
+{
+  return (sipmID >= 0 && sipmID < 40);
+}
 
+void SteppingAction::ReportInvalidSiPMName(const G4String& volumeName)
+{
+  G4ExceptionDescription msg;
+  msg << "Invalid SiPM volume name: " << volumeName;
+  G4Exception("SteppingAction::ProcessSiPMHit",
+              "MyCode001", JustWarning, msg);
+}
 
+void SteppingAction::RecordStartPosition(const G4Step* step)
+{
+  G4Track* track = step->GetTrack();
+  if(track->GetCurrentStepNumber() == 1) {
+    G4ThreeVector startPos = track->GetVertexPosition();
+    fEventAction->AddStartPosition(startPos.x(), startPos.y(), startPos.z());
+  }
 }

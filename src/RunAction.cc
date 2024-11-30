@@ -1,132 +1,175 @@
+// RunAction.cc
 #include "RunAction.hh"
 
-RunAction::RunAction(G4String fileName):G4UserRunAction(),fFileName(fileName)
-{
+#include "G4RunManager.hh"
+#include "G4Run.hh"
+#include "PrimaryGeneratorAction.hh"
+#include "Construction.hh"
 
-  auto analysisManager = G4AnalysisManager::Instance();     
-  analysisManager->SetVerboseLevel(1);  
-  analysisManager->CreateNtuple("HAWL_tree", "Event_by_Event");
-  analysisManager->CreateNtupleDColumn("Event_ID");    // 0
-  analysisManager->CreateNtupleDColumn("0_SiPM");      // 1
-  analysisManager->CreateNtupleDColumn("1_SiPM");      // 2
-  analysisManager->CreateNtupleDColumn("2_SiPM");      // 3
-  analysisManager->CreateNtupleDColumn("3_SiPM");      // 4
-  analysisManager->CreateNtupleDColumn("4_SiPM");      // 5
-  analysisManager->CreateNtupleDColumn("5_SiPM");      // 6
-  analysisManager->CreateNtupleDColumn("6_SiPM");      // 7
-  analysisManager->CreateNtupleDColumn("7_SiPM");      // 8
-  analysisManager->CreateNtupleDColumn("8_SiPM");      // 9
-  analysisManager->CreateNtupleDColumn("9_SiPM");      // 10
-  analysisManager->CreateNtupleDColumn("10_SiPM");      // 11
-  analysisManager->CreateNtupleDColumn("11_SiPM");      // 12
-  analysisManager->CreateNtupleDColumn("12_SiPM");      // 13
-  analysisManager->CreateNtupleDColumn("13_SiPM");      // 14
-  analysisManager->CreateNtupleDColumn("14_SiPM");      // 15
-  analysisManager->CreateNtupleDColumn("15_SiPM");      // 16
-  analysisManager->CreateNtupleDColumn("16_SiPM");      // 17
-  analysisManager->CreateNtupleDColumn("17_SiPM");      // 18
-  analysisManager->CreateNtupleDColumn("18_SiPM");      // 19
-  analysisManager->CreateNtupleDColumn("19_SiPM");      // 20    
-  analysisManager->CreateNtupleDColumn("20_SiPM");      // 21
-  analysisManager->CreateNtupleDColumn("21_SiPM");      // 22
-  analysisManager->CreateNtupleDColumn("22_SiPM");      // 23
-  analysisManager->CreateNtupleDColumn("23_SiPM");      // 24
-  analysisManager->CreateNtupleDColumn("24_SiPM");      // 25
-  analysisManager->CreateNtupleDColumn("25_SiPM");      // 26
-  analysisManager->CreateNtupleDColumn("26_SiPM");      // 27
-  analysisManager->CreateNtupleDColumn("27_SiPM");      // 28
-  analysisManager->CreateNtupleDColumn("28_SiPM");      // 29
-  analysisManager->CreateNtupleDColumn("29_SiPM");      // 30
-  analysisManager->CreateNtupleDColumn("30_SiPM");      // 31
-  analysisManager->CreateNtupleDColumn("31_SiPM");      // 32
-  analysisManager->CreateNtupleDColumn("32_SiPM");      // 33
-  analysisManager->CreateNtupleDColumn("33_SiPM");      // 34
-  analysisManager->CreateNtupleDColumn("34_SiPM");      // 35
-  analysisManager->CreateNtupleDColumn("35_SiPM");      // 36
-  analysisManager->CreateNtupleDColumn("36_SiPM");      // 37
-  analysisManager->CreateNtupleDColumn("37_SiPM");      // 38
-  analysisManager->CreateNtupleDColumn("38_SiPM");      // 39
-  analysisManager->CreateNtupleDColumn("39_SiPM");      // 40
-  analysisManager->CreateNtupleDColumn("WholePhoton");  // 41
-  analysisManager->CreateNtupleDColumn("WholeSiPM");    // 42
-  analysisManager->CreateNtupleDColumn("AverageLength");// 43
-  analysisManager->CreateNtupleDColumn("startX");       // 44
-  analysisManager->CreateNtupleDColumn("startY");       // 45
-  analysisManager->CreateNtupleDColumn("startZ");       // 46
-    
-  analysisManager->FinishNtuple();
+#include "G4SystemOfUnits.hh"
+
+#include "G4ThreeVector.hh"
+
+#include <sstream>
+#include <iostream>
+
+RunAction::RunAction(G4String fileName)
+  : G4UserRunAction(), 
+    fFileName(fileName),
+    fEvent(0),
+    nofEvents(0),
+    fStartX(0.0),
+    fStartY(0.0),
+    fStartZ(0.0),
+    fPhotonCount(0)
+{
+  InitializeAnalysisManager();
 }
 
 RunAction::~RunAction()
 {
-  delete G4AnalysisManager::Instance();
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->Write();
+  analysisManager->CloseFile();
+  delete analysisManager;
 }
 
-void RunAction::BeginOfRunAction(const G4Run* )
+void RunAction::InitializeAnalysisManager()
 {
-  // inform the runManager to save random number seed
-  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
-
-  // Get analysis manager
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-
-  G4String fileName = fFileName;
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->SetVerboseLevel(1);
   
-  analysisManager->OpenFile(fileName);
-  G4cout << "Open File " << G4endl;
+  CreateNtuples(analysisManager);
+  
+  G4String fileNameFinal = fFileName + ".csv";
+  analysisManager->OpenFile(fileNameFinal);
+  G4cout << "Open File " << fileNameFinal << G4endl;
+}
+
+void RunAction::CreateNtuples(G4AnalysisManager* analysisManager)
+{
+  analysisManager->CreateNtuple("SiPM", "ntp");
+  CreateBasicColumns(analysisManager);
+  CreateSiPMColumns(analysisManager);
+  CreatePositionColumns(analysisManager);
+  analysisManager->FinishNtuple();
+}
+
+void RunAction::CreateBasicColumns(G4AnalysisManager* analysisManager)
+{
+  analysisManager->CreateNtupleIColumn("Run_ID");
+  analysisManager->CreateNtupleIColumn("TotalEvents");
+}
+
+void RunAction::CreateSiPMColumns(G4AnalysisManager* analysisManager)
+{
+  for(int i = 0; i < 40; ++i) {
+    std::ostringstream columnName;
+    columnName << "SiPM_" << i;
+    analysisManager->CreateNtupleIColumn(columnName.str());
+  }
+}
+
+void RunAction::CreatePositionColumns(G4AnalysisManager* analysisManager)
+{
+  analysisManager->CreateNtupleDColumn("X");
+  analysisManager->CreateNtupleDColumn("Y");
+  analysisManager->CreateNtupleDColumn("Z");
+}
+
+void RunAction::BeginOfRunAction(const G4Run*)
+{
+  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+  ResetRunVariables();
+}
+
+void RunAction::ResetRunVariables()
+{
+  fStartX = 0.0;
+  fStartY = 0.0;
+  fStartZ = 0.0;
+  fPhotonCount = 0.0;
+  fPhotonPositions.clear();
+  std::fill_n(f_SiPM_Count, 40, 0);
 }
 
 void RunAction::EndOfRunAction(const G4Run* run)
 {
-  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+  ProcessEndOfRun(run);
+  SaveRunData();
+  ResetRunVariables();
+  printEventproc();
+}
+
+void RunAction::ProcessEndOfRun(const G4Run* run)
+{
   nofEvents = run->GetNumberOfEvent();
   if (nofEvents == 0) return;
 
- 
-  const MyDetectorConstruction* detConstruction
-   = static_cast<const MyDetectorConstruction*>
-    (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-  
-  // Run conditions
+  PrintRunSummary();
+}
 
-  //  note: There is no primary generator action object for "master"
-  //        run manager for multi-threaded mode.
-  
-  const PrimaryGeneratorAction* generatorAction
-   = static_cast<const PrimaryGeneratorAction*>
-    (G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction());
-  G4String runCondition;
-  
+void RunAction::PrintRunSummary()
+{
   if (IsMaster()) {
-    G4cout
-      << G4endl
-      << "--------------------End of Global Run-----------------------";
-  }
-  else {
-    G4cout
-      << G4endl
-      << "--------------------End of Local Run------------------------";
+    G4cout << G4endl << "--------------------End of Global Run-----------------------";
+  } else {
+    G4cout << G4endl << "--------------------End of Local Run------------------------";
   }
 
-   G4cout
-     << G4endl
-     << " The run consists of " << nofEvents << " "<< runCondition
-     << G4endl
-     << "------------------------------------------------------------"
-     << G4endl;
+  G4cout << G4endl
+         << " The run consists of " << nofEvents << " events"
+         << G4endl
+         << "------------------------------------------------------------"
+         << G4endl;
+}
 
-   // save histograms & ntuple
-   analysisManager->Write();
-   analysisManager->CloseFile();
+void RunAction::SaveRunData()
+{
+  auto analysisManager = G4AnalysisManager::Instance();
+  
+  // 기본 데이터 저장
+  SaveBasicData(analysisManager);
+  
+  // SiPM 데이터 저장
+  SaveSiPMData(analysisManager);
+  
+  // 위치 데이터 저장
+  SavePositionData(analysisManager);
+  
+  analysisManager->AddNtupleRow();
+}
+
+void RunAction::SaveBasicData(G4AnalysisManager* analysisManager)
+{
+  const G4Run* run = G4RunManager::GetRunManager()->GetCurrentRun();
+  
+  analysisManager->FillNtupleIColumn(0, run->GetRunID());
+  analysisManager->FillNtupleIColumn(1, nofEvents);
+}
+
+void RunAction::SaveSiPMData(G4AnalysisManager* analysisManager)
+{
+  for(int i = 0; i < 40; ++i) {
+    analysisManager->FillNtupleIColumn(i+2, f_SiPM_Count[i]);
+  }
+}
+
+void RunAction::SavePositionData(G4AnalysisManager* analysisManager)
+{
+  double avgStartX = (fPhotonCount > 0) ? (fStartX / fPhotonCount) : 0.0;
+  double avgStartY = (fPhotonCount > 0) ? (fStartY / fPhotonCount) : 0.0;
+  double avgStartZ = (fPhotonCount > 0) ? (fStartZ / fPhotonCount) : 0.0;
+
+  analysisManager->FillNtupleDColumn(42, avgStartX);
+  analysisManager->FillNtupleDColumn(43, avgStartY);
+  analysisManager->FillNtupleDColumn(44, avgStartZ);
 }
 
 void RunAction::printEventproc()
 {
-
   fEvent += 1;
-  if(fEvent % 10 == 0)
-    {
-      G4cout<<" Events clear : "<<fEvent <<G4endl;
-    }
-  
+  if(fEvent % 1000 == 0) {
+    G4cout << " Events clear : " << fEvent << G4endl;
+  }
 }

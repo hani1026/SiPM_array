@@ -1,0 +1,7 @@
+build/
+*.o
+*.so
+SiPM
+.DS_Store
+CMakeFiles/
+CMakeCache.txt
