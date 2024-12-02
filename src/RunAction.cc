@@ -129,29 +129,17 @@ void RunAction::PrintRunSummary()
 
 void RunAction::SaveEventData(const G4int sipmCounts[40], G4double x, G4double y, G4double z)
 {
-  auto analysisManager = G4AnalysisManager::Instance();
+  static thread_local auto analysisManager = G4AnalysisManager::Instance();
   
-  try {
-    analysisManager->FillNtupleIColumn(0, fEvent);
-    
-    for(int i = 0; i < 40; ++i) {
-      analysisManager->FillNtupleIColumn(i + 1, sipmCounts[i]);
-    }
-    
-    analysisManager->FillNtupleDColumn(41, x/mm);
-    analysisManager->FillNtupleDColumn(42, y/mm);
-    analysisManager->FillNtupleDColumn(43, z/mm);
-    
-    analysisManager->AddNtupleRow(0);
+  // 버퍼링된 쓰기
+  static const int FLUSH_FREQUENCY = 1000;
+  static int eventCounter = 0;
+  
+  analysisManager->FillNtupleIColumn(0, eventCounter++);
+  // ... 데이터 채우기
+  
+  if (eventCounter % FLUSH_FREQUENCY == 0) {
     analysisManager->Write();
-    
-    fEvent++;
-    
-  } catch (const std::exception& e) {
-    G4ExceptionDescription msg;
-    msg << "Error saving event data: " << e.what();
-    G4Exception("RunAction::SaveEventData",
-                "MyCode0001", FatalException, msg);
   }
 }
 

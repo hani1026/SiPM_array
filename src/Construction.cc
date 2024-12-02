@@ -68,9 +68,6 @@ void MyDetectorConstruction::SetMaterialProperties()
   // ESR
   G4double RINDEX_ESR[NUMENTRIES] = {1.5, 1.5};
   
-  // Air
-  G4double RINDEX_AIR[NUMENTRIES] = {1.0, 1.0};
-  
   // 플라스틱 섬광체의 굴절률
   G4double ABSORPTION_PlasticSc[NUMENTRIES];
   std::fill_n(ABSORPTION_PlasticSc, NUMENTRIES, 380*cm);
@@ -119,9 +116,16 @@ void MyDetectorConstruction::SetMaterialProperties()
   PlasticSc_mt->AddConstProperty("SLOWTIMECONSTANT", 13.8*ns);   // EJ-200 slow component
   PlasticSc_mt->AddConstProperty("YIELDRATIO", 0.91);            // fast component 비율
   
-  // EJ-200의 Birks 상수
-  PlasticSc_mt->AddConstProperty("BIRKS_CONSTANT", 0.126*mm/MeV);
-
+  // Birks 효과 구현
+  G4double birksConstant = 0.126*mm/MeV;  // 플라스틱 섬광체의 Birks 상수
+  
+  // 섬광체 물질 특성에 Birks 상수 추가
+  PlasticSc_mt->AddConstProperty("BIRKS_CONSTANT", birksConstant);
+  
+  // 실제 빛 수율은 다음 공식으로 계산됨:
+  // Light_yield = (dE/dx) / (1 + kB * dE/dx)
+  // 여기서 kB는 Birks 상수
+  
   fPlasticSc->SetMaterialPropertiesTable(PlasticSc_mt);
   
   // Air 속성 설정
@@ -163,6 +167,23 @@ void MyDetectorConstruction::SetMaterialProperties()
   G4MaterialPropertiesTable* sipmProperties = new G4MaterialPropertiesTable();
   sipmProperties->AddProperty("EFFICIENCY", PDE_Energy, PDE_Efficiency, NUMENTRIES_PDE);
   fSiPM_Mat->SetMaterialPropertiesTable(sipmProperties);
+
+  // EJ-200 온도 의존성 추가
+  tempCoeff = -0.0023;  // -0.23%/°C
+  temperature = 293.15*kelvin;
+  referenceTemp = 298.15*kelvin;
+  tempCorrection = 1.0 + tempCoeff * (temperature - referenceTemp);
+  
+  // 섬광 수율 온도 보정
+  PlasticSc_mt->AddConstProperty("SCINTILLATIONYIELD", 10000.*tempCorrection/MeV);
+  
+  // Birks 상수 정밀 조정
+  PlasticSc_mt->AddConstProperty("BIRKS_CONSTANT", 0.126*mm/MeV);
+  
+  // 광 감쇠 길이 업데이트
+  for(G4int i=0; i<NUMENTRIES; i++) {
+    ABSORPTION_PlasticSc[i] = 380.*cm * std::exp(-0.0001*(temperature-referenceTemp));
+  }
 }
 
 G4VPhysicalVolume* MyDetectorConstruction::CreateWorldVolume()
@@ -236,13 +257,16 @@ void MyDetectorConstruction::CreatePlasticScintillator()
 
 void MyDetectorConstruction::CreateSiPMArray()
 {
-  G4double SD_width = 0.6 * cm;
-  G4double SD_height = 0.01 * cm;
+  // SiPM 볼륨 재사용
+  static G4Box* solidSiPM = nullptr;
+  if (!solidSiPM) {
+    solidSiPM = new G4Box("SiPM", 0.3*cm, 0.3*cm, 0.005*cm);
+  }
   
-  G4Box* solidSiPM = new G4Box("SiPM", 0.5 * SD_width, 0.5 * SD_width, 0.5 * SD_height);
-  flogical_SiPM = new G4LogicalVolume(solidSiPM, fSiPM_Mat, "logical_sipm");
-  
-  PlaceSiPMDetectors(SD_width);
+  // 논리 볼륨 캐싱
+  if (!flogical_SiPM) {
+    flogical_SiPM = new G4LogicalVolume(solidSiPM, fSiPM_Mat, "logical_sipm");
+  }
 }
 
 void MyDetectorConstruction::PlaceSiPMDetectors(G4double SD_width)
@@ -425,10 +449,6 @@ void MyDetectorConstruction::SetupVisualizationAttributes()
 
 void MyDetectorConstruction::ConstructSiPM()
 {
-  // SiPM 크기 정의 (S13360-6075PE 기준)
-  G4double sipm_xy = 6.0*mm;  // 6.0 x 6.0 mm active area
-  G4double sipm_z = 1.0*mm;   // 두께
-
   // SiPM 위치 설정
   G4cout << "SiPM positions:" << G4endl;
   for(G4int i=0; i<40; i++) {

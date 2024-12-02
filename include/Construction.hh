@@ -49,8 +49,6 @@ private:
   G4Material* fSiPM_Mat;
   
   const G4bool fCheckOverlaps = true;
-  G4LogicalBorderSurface* fESR_PS_Surface;
-  G4LogicalBorderSurface* fPS_ESR_Surface;
   G4VPhysicalVolume* fPhysical_PS;
   G4VPhysicalVolume* fPhysical_ESR;
   G4VPhysicalVolume* fPhysical_SiPM;

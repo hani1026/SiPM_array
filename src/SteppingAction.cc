@@ -9,6 +9,8 @@
 #include "G4UnitsTable.hh"
 #include "G4Exception.hh"
 #include "G4VProcess.hh"
+#include "G4PhysicalConstants.hh"
+#include "G4SystemOfUnits.hh"
 
 #include <iostream> // 디버그 출력을 위해 추가                                                                                                                                                   
 
@@ -21,9 +23,13 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  G4Track* track = step->GetTrack();
+  // 포인터 캐싱
+  static thread_local G4Track* track = nullptr;
+  static thread_local G4StepPoint* postStepPoint = nullptr;
+  
+  track = step->GetTrack();
   if (track->GetDefinition()->GetParticleName() == "opticalphoton") {
-    G4StepPoint* postStepPoint = step->GetPostStepPoint();
+    postStepPoint = step->GetPostStepPoint();
     if (postStepPoint) {
       G4VPhysicalVolume* postVolume = postStepPoint->GetPhysicalVolume();
       if (postVolume && IsSiPMVolume(postVolume->GetName())) {
@@ -53,56 +59,28 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
 G4bool SteppingAction::SimulateSiPMResponse(const G4Step* step)
 {
-  // 널 포인터 체크 추가
   if (!step) return false;
   
-  // 물질 속성 테이블 접근 전 유효성 검사
-  G4MaterialPropertiesTable* mpt = 
-    step->GetPreStepPoint()->GetMaterial()->GetMaterialPropertiesTable();
-  if (!mpt) return false;
+  // 광자 에너지에 따른 PDE 적용 (S13360-6075PE 기준)
+  G4double photonEnergy = step->GetTrack()->GetTotalEnergy();
   
-  G4MaterialPropertyVector* effVector = mpt->GetProperty("EFFICIENCY");
-  if (!effVector) return false;
+  // PDE 피크값: ~450nm에서 약 40%
+  G4double peakPDE = 0.40;  // 40% at peak
+  G4double peakWavelength = 450 * nanometer;
+  G4double peakEnergy = (h_Planck * c_light) / peakWavelength;
   
-  // 온도에 따른 PDE 보정
-  G4double temperature = 293.15*kelvin;  // 작동 온도
-  G4double referenceTemp = 298.15*kelvin;  // 데이터시트 기준 온도
-  G4double tempCoeff = -0.0016;  // PDE 온도 계수
-  G4double tempCorrection = 1.0 + tempCoeff * (temperature - referenceTemp);
+  // 간단한 가우시안 형태로 PDE 계산
+  G4double sigma = 0.5 * eV;  // PDE 커브의 폭
+  G4double pde = peakPDE * std::exp(-std::pow((photonEnergy - peakEnergy)/(sigma), 2)/2.);
   
-  // 과전압 효과 추가
-  G4double overVoltage = 3.0*volt;  // 동작 과전압
-  G4double nominalVoltage = 2.7*volt;  // 권장 과전압
-  G4double voltageCoeff = 0.1;  // 과전압 계수
-  G4double voltageCorrection = 1.0 + voltageCoeff * (overVoltage - nominalVoltage);
+  // PDE에 따른 검출 여부 결정
+  if (G4UniformRand() > pde) return false;
   
-  // 총 보정 계수
-  G4double totalCorrection = tempCorrection * voltageCorrection;
-  G4double efficiency = effVector->Value(step->GetTrack()->GetTotalEnergy());
-  efficiency *= totalCorrection;
-  
-  // PDE에 따른 광자 검출 여부 결정
-  if(G4UniformRand() > efficiency) return false;
-
-  // 크로스토크 시뮬레이션 (3% 확률, S13360-6075PE 데이터시트 기준)
-  if(G4UniformRand() < 0.03) {
-    fEventAction->AddCount_SiPM(GetSiPMID(step));  // 추가 펄스
+  // 기본적인 크로스토크 (3%)
+  if (G4UniformRand() < 0.03) {
+    fEventAction->AddCount_SiPM(GetSiPMID(step));
   }
-
-  // 애프터펄싱 시뮬레이션 (약 3% 확률)
-  if(G4UniformRand() < 0.03) {
-    G4double delay = -50*ns * std::log(G4UniformRand());  // 지수 분포
-    if(delay < 1000*ns) {  // 1μs 이내만 고려
-      fEventAction->AddDelayedCount_SiPM(GetSiPMID(step), delay);
-    }
-  }
-
-  // 회복 시간 효과 추가 (약 50ns)
-  static G4double lastHitTime = 0;
-  G4double currentTime = step->GetTrack()->GetGlobalTime();
-  if(currentTime - lastHitTime < 50*ns) return false;
-  lastHitTime = currentTime;
-
+  
   return true;
 }
 

@@ -40,26 +40,28 @@ void EventAction::ResetEventVariables()
 
 void EventAction::EndOfEventAction(const G4Event*)
 {
-  G4int totalCounts = 0;
-  for(int i = 0; i < 40; i++) {
-    totalCounts += f_SiPM_Count[i];
-  }
+  // 버퍼링된 데이터 처리
+  static const int BUFFER_SIZE = 1000;
+  static std::vector<std::array<G4int, 40>> sipmBuffer;
+  static std::vector<G4ThreeVector> posBuffer;
   
-  fRunAction->SaveEventData(f_SiPM_Count, fStartX, fStartY, fStartZ);
-  ResetEventVariables();
-
-  // 타이밍 정보 추가
-  std::vector<G4double> hitTimes;
-  for(const auto& delayedCount : fDelayedCounts) {
-    hitTimes.push_back(delayedCount.time);
-  }
+  // 현재 이벤트 데이터 추가
+  sipmBuffer.push_back(std::array<G4int, 40>());
+  std::copy(std::begin(f_SiPM_Count), std::end(f_SiPM_Count), 
+            sipmBuffer.back().begin());
   
-  // 에너지 분해능 시뮬레이션
-  G4double totalEnergy = 0;
-  for(int i = 0; i < 40; i++) {
-    G4double resolution = 0.1;  // 10% @ 1MeV
-    G4double sigma = resolution * std::sqrt(f_SiPM_Count[i]);
-    f_SiPM_Count[i] = G4int(G4RandGauss::shoot(f_SiPM_Count[i], sigma));
+  posBuffer.push_back(G4ThreeVector(fStartX, fStartY, fStartZ));
+  
+  // 버퍼가 가득 차면 한번에 처리
+  if (sipmBuffer.size() >= BUFFER_SIZE) {
+    for (size_t i = 0; i < sipmBuffer.size(); ++i) {
+      fRunAction->SaveEventData(sipmBuffer[i].data(), 
+                              posBuffer[i].x(),
+                              posBuffer[i].y(),
+                              posBuffer[i].z());
+    }
+    sipmBuffer.clear();
+    posBuffer.clear();
   }
 }
 
