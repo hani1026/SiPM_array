@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/Construction.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/Construction.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/Construction.hh \
+  /Users/kimkuhani/SiPM_array/src/Construction.cc \
+  /Users/kimkuhani/SiPM_array/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ios.hh \

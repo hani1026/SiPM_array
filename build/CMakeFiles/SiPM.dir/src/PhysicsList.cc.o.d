@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/PhysicsList.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/PhysicsList.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/PhysicsList.hh \
+  /Users/kimkuhani/SiPM_array/src/PhysicsList.cc \
+  /Users/kimkuhani/SiPM_array/include/PhysicsList.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VModularPhysicsList.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/copy.h \

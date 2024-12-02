@@ -1,4 +1,4 @@
-CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array_muon/SiPM.cc \
+CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array/SiPM.cc \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__assert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__config \
@@ -1244,7 +1244,7 @@ CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array_muon/SiPM.cc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Qt3D.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UIExecutive.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUIshell.hh \
-  /Users/kimkuhani/SiPM_array_muon/include/Construction.hh \
+  /Users/kimkuhani/SiPM_array/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SystemOfUnits.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PVPlacement.hh \
@@ -1270,7 +1270,7 @@ CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array_muon/SiPM.cc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4LogicalSurface.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4LogicalSurface.icc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4LogicalBorderSurface.icc \
-  /Users/kimkuhani/SiPM_array_muon/include/PhysicsList.hh \
+  /Users/kimkuhani/SiPM_array/include/PhysicsList.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VModularPhysicsList.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VPhysicsConstructor.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PhysicsListHelper.hh \
@@ -1284,5 +1284,5 @@ CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array_muon/SiPM.cc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4MaterialCutsCouple.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ProductionCuts.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4MCCIndexConversionTable.hh \
-  /Users/kimkuhani/SiPM_array_muon/include/ActionInitialization.hh \
+  /Users/kimkuhani/SiPM_array/include/ActionInitialization.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserActionInitialization.hh

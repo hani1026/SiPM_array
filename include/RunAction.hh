@@ -24,7 +24,7 @@ public:
   void printEventproc();
   
   // 이벤트 데이터 저장을 위한 새로운 메서드
-  void SaveEventData();
+  void SaveEventData(const G4int sipmCounts[40], G4double x, G4double y, G4double z);
 
   // 데이터 추가 메서드
   void AddStartPosition(G4double x, G4double y, G4double z) {

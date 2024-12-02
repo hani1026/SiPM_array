@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/PrimaryGeneratorAction.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/PrimaryGeneratorAction.hh \
+  /Users/kimkuhani/SiPM_array/src/PrimaryGeneratorAction.cc \
+  /Users/kimkuhani/SiPM_array/include/PrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4GeneralParticleSource.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \

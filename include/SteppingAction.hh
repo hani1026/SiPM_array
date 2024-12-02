@@ -20,6 +20,7 @@ private:
   bool IsValidSiPMID(G4int sipmID);
   void ReportInvalidSiPMName(const G4String& volumeName);
   void RecordStartPosition(const G4Step* step);
+  bool IsMuon(const G4Step* step);
 
   EventAction* fEventAction;
 };

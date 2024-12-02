@@ -20,16 +20,26 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  if (!IsOpticalPhoton(step)) return;
-  
-  ProcessSiPMHit(step);
-  RecordStartPosition(step);
+  // 광자인 경우에만 SiPM 히트 처리
+  if (IsOpticalPhoton(step)) {
+    ProcessSiPMHit(step);
+  }
+  // 뮤온인 경우에만 시작 위치 기록
+  else if (IsMuon(step)) {
+    RecordStartPosition(step);
+  }
 }
 
 bool SteppingAction::IsOpticalPhoton(const G4Step* step)
 {
   G4Track* track = step->GetTrack();
   return (track->GetDefinition()->GetParticleName() == "opticalphoton");
+}
+
+bool SteppingAction::IsMuon(const G4Step* step)
+{
+  G4Track* track = step->GetTrack();
+  return (track->GetDefinition()->GetParticleName() == "mu-");
 }
 
 void SteppingAction::ProcessSiPMHit(const G4Step* step)

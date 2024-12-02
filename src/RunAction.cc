@@ -122,7 +122,7 @@ void RunAction::PrintRunSummary()
          << G4endl;
 }
 
-void RunAction::SaveEventData()
+void RunAction::SaveEventData(const G4int sipmCounts[40], G4double x, G4double y, G4double z)
 {
   auto analysisManager = G4AnalysisManager::Instance();
   
@@ -131,22 +131,19 @@ void RunAction::SaveEventData()
   
   // SiPM 데이터 저장
   for(int i = 0; i < 40; ++i) {
-    analysisManager->FillNtupleIColumn(i+1, f_SiPM_Count[i]);
+    analysisManager->FillNtupleIColumn(i+1, sipmCounts[i]);
   }
   
-  // 위치 데이터 저장
-  double avgStartX = (fPhotonCount > 0) ? (fStartX / fPhotonCount) : 0.0;
-  double avgStartY = (fPhotonCount > 0) ? (fStartY / fPhotonCount) : 0.0;
-  double avgStartZ = (fPhotonCount > 0) ? (fStartZ / fPhotonCount) : 0.0;
-
-  analysisManager->FillNtupleDColumn(41, avgStartX);
-  analysisManager->FillNtupleDColumn(42, avgStartY);
-  analysisManager->FillNtupleDColumn(43, avgStartZ);
+  // 뮤온 시작 위치 저장
+  analysisManager->FillNtupleDColumn(41, x);
+  analysisManager->FillNtupleDColumn(42, y);
+  analysisManager->FillNtupleDColumn(43, z);
   
+  // 행 추가
   analysisManager->AddNtupleRow();
   
-  // 데이터 저장 후 변수들 초기화
-  ResetRunVariables();
+  // 이벤트 카운터 증가
+  fEvent++;
 }
 
 void RunAction::printEventproc()

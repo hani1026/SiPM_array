@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/SteppingAction.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/SteppingAction.hh \
+  /Users/kimkuhani/SiPM_array/src/SteppingAction.cc \
+  /Users/kimkuhani/SiPM_array/include/SteppingAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserSteppingAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Step.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/stdlib.h \
@@ -1025,7 +1025,7 @@ CMakeFiles/SiPM.dir/src/SteppingAction.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserTrackInformation.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PhysicsModelCatalog.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4Track.icc \
-  /Users/kimkuhani/SiPM_array_muon/include/EventAction.hh \
+  /Users/kimkuhani/SiPM_array/include/EventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserEventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UnitsTable.icc

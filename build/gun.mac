@@ -9,4 +9,4 @@
 
 #
 
-/run/beamOn 100 beam.txt
+/run/beamOn 10 beam.txt

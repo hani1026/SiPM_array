@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kimkuhani/SiPM_array_muon
+# Install script for directory: /Users/kimkuhani/SiPM_array
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/kimkuhani/SiPM_array_muon/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/kimkuhani/SiPM_array/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

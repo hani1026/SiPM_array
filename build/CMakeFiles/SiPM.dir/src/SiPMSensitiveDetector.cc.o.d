@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/SiPMSensitiveDetector.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/SiPMSensitiveDetector.hh \
+  /Users/kimkuhani/SiPM_array/src/SiPMSensitiveDetector.cc \
+  /Users/kimkuhani/SiPM_array/include/SiPMSensitiveDetector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VSensitiveDetector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VHit.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \
@@ -1050,6 +1050,6 @@ CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/G4TouchableHistory.icc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4CollectionNameVector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VSDFilter.hh \
-  /Users/kimkuhani/SiPM_array_muon/include/EventAction.hh \
+  /Users/kimkuhani/SiPM_array/include/EventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserEventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4SystemOfUnits.hh

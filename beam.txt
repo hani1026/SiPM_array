@@ -1,0 +1,19 @@
+# 입자 타입 설정
+/gps/particle mu-
+
+# 에너지 설정
+/gps/energy 1 GeV
+
+# 위치 분포 타입 설정 (평면)
+/gps/pos/type Plane
+/gps/pos/shape Rectangle
+
+# 평면의 크기 설정 (섬광체와 동일한 면적)
+/gps/pos/halfx 50 cm
+/gps/pos/halfy 25 cm
+
+# 평면의 중심 위치 설정 (섬광체 위 50cm)
+/gps/pos/centre 0. 0. 51 cm
+
+# 방향 설정 (수직 하강)
+/gps/direction 0 0 -1 

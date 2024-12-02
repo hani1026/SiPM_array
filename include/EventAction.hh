@@ -19,12 +19,7 @@ public:
 
   // 데이터 추가 메서드
   void AddCount_SiPM(G4int sipmID);
-  void AddStartPosition(G4double x, G4double y, G4double z) {
-    fStartX += x;
-    fStartY += y;
-    fStartZ += z;
-    fPhotonCount += 1.0;
-  }
+  void AddStartPosition(G4double x, G4double y, G4double z);
   void AddPhotonPosition(const G4ThreeVector& pos) {
     fPhotonPositions.push_back(pos);
   }
@@ -35,7 +30,6 @@ private:
   void ResetCounters();
 
   // 이벤트 처리 메서드
-  void ProcessEventData();
   void CalculateAveragePositions();
   void UpdateRunAction();
   void PrintEventProgress();

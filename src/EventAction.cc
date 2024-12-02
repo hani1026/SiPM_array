@@ -40,24 +40,17 @@ void EventAction::ResetCounters()
 
 void EventAction::EndOfEventAction(const G4Event*)
 {
-  ProcessEventData();
-  UpdateRunAction();
-  PrintEventProgress();
+  // RunAction에 데이터 직접 전달하여 저장
+  fRunAction->SaveEventData(f_SiPM_Count, fStartX, fStartY, fStartZ);
+  
+  // 변수 초기화
+  ResetEventVariables();
 }
 
-void EventAction::ProcessEventData()
-{
-  // 이벤트 데이터 처리 로직
-  CalculateAveragePositions();
-}
-
-void EventAction::CalculateAveragePositions()
-{
-  if (fPhotonCount > 0) {
-    fStartX /= fPhotonCount;
-    fStartY /= fPhotonCount;
-    fStartZ /= fPhotonCount;
-  }
+void EventAction::AddStartPosition(G4double x, G4double y, G4double z) {
+  fStartX = x;
+  fStartY = y;
+  fStartZ = z;
 }
 
 void EventAction::UpdateRunAction()

@@ -1,6 +1,6 @@
 CMakeFiles/SiPM.dir/src/EventAction.cc.o: \
-  /Users/kimkuhani/SiPM_array_muon/src/EventAction.cc \
-  /Users/kimkuhani/SiPM_array_muon/include/EventAction.hh \
+  /Users/kimkuhani/SiPM_array/src/EventAction.cc \
+  /Users/kimkuhani/SiPM_array/include/EventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserEventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ThreeVector.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/globals.hh \
@@ -898,7 +898,7 @@ CMakeFiles/SiPM.dir/src/EventAction.cc.o: \
   /opt/geant4-v10.7.4/install/include/Geant4/CLHEP/Vector/ThreeVector.h \
   /opt/geant4-v10.7.4/install/include/Geant4/CLHEP/Utility/defs.h \
   /opt/geant4-v10.7.4/install/include/Geant4/CLHEP/Vector/ThreeVector.icc \
-  /Users/kimkuhani/SiPM_array_muon/include/RunAction.hh \
+  /Users/kimkuhani/SiPM_array/include/RunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserRunAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4RunManager.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/rundefs.hh \
