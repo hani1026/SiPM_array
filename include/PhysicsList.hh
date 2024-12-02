@@ -1,18 +1,17 @@
-#ifndef PHYSICS_h
-#define PHYSICS_h
+#ifndef PhysicsList_h
+#define PhysicsList_h
 
 #include "G4VModularPhysicsList.hh"
+#include "G4OpticalPhysics.hh"
 
-class MyPhysicsList : public G4VModularPhysicsList
+class PhysicsList : public G4VModularPhysicsList
 {
 public:
-  MyPhysicsList();
-  virtual ~MyPhysicsList();
-  void ConstructOp();
+  PhysicsList();
+  virtual ~PhysicsList();
 
-private:
-  void InitializePhysics();
-  virtual void SetCuts() override;
+  virtual void SetCuts();
+  virtual void ConstructProcess();
 };
 
 #endif

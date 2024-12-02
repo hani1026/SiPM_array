@@ -23,7 +23,37 @@ RunAction::RunAction(G4String fileName)
     fStartZ(0.0),
     fPhotonCount(0)
 {
-  InitializeAnalysisManager();
+  // Analysis manager 초기화
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->SetVerboseLevel(2);  // 더 자세한 디버그 출력
+  
+  // CSV 출력 설정
+  analysisManager->SetNtupleDirectoryName(".");
+  analysisManager->SetFirstNtupleId(0);
+  
+  // Ntuple 생성
+  analysisManager->CreateNtuple("SiPM", "Detector Data");
+  
+  // 컬럼 생성
+  analysisManager->CreateNtupleIColumn("Event_ID");  // column 0
+  
+  // SiPM 채널
+  for(G4int i = 0; i < 40; i++) {
+    G4String colName = "SiPM_" + std::to_string(i);
+    analysisManager->CreateNtupleIColumn(colName);  // columns 1-40
+  }
+  
+  // 위치 정보
+  analysisManager->CreateNtupleDColumn("X");  // column 41
+  analysisManager->CreateNtupleDColumn("Y");  // column 42
+  analysisManager->CreateNtupleDColumn("Z");  // column 43
+  
+  analysisManager->FinishNtuple();
+  
+  // 파일 열기
+  G4String fileNameFull = fileName + "_nt_SiPM.csv";
+  analysisManager->OpenFile(fileNameFull);
+  G4cout << "Created and opened output file: " << fileNameFull << G4endl;
 }
 
 RunAction::~RunAction()
@@ -34,52 +64,17 @@ RunAction::~RunAction()
   delete analysisManager;
 }
 
-void RunAction::InitializeAnalysisManager()
-{
-  auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->SetVerboseLevel(1);
-  
-  CreateNtuples(analysisManager);
-  
-  G4String fileNameFinal = fFileName + ".csv";
-  analysisManager->OpenFile(fileNameFinal);
-  G4cout << "Open File " << fileNameFinal << G4endl;
-}
-
-void RunAction::CreateNtuples(G4AnalysisManager* analysisManager)
-{
-  analysisManager->CreateNtuple("SiPM", "ntp");
-  CreateBasicColumns(analysisManager);
-  CreateSiPMColumns(analysisManager);
-  CreatePositionColumns(analysisManager);
-  analysisManager->FinishNtuple();
-}
-
-void RunAction::CreateBasicColumns(G4AnalysisManager* analysisManager)
-{
-  analysisManager->CreateNtupleIColumn("Event_ID");
-}
-
-void RunAction::CreateSiPMColumns(G4AnalysisManager* analysisManager)
-{
-  for(int i = 0; i < 40; ++i) {
-    std::ostringstream columnName;
-    columnName << "SiPM_" << i;
-    analysisManager->CreateNtupleIColumn(columnName.str());
-  }
-}
-
-void RunAction::CreatePositionColumns(G4AnalysisManager* analysisManager)
-{
-  analysisManager->CreateNtupleDColumn("X");
-  analysisManager->CreateNtupleDColumn("Y");
-  analysisManager->CreateNtupleDColumn("Z");
-}
-
 void RunAction::BeginOfRunAction(const G4Run*)
 {
-  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
-  ResetRunVariables();
+  G4cout << "Beginning of run action" << G4endl;
+  fEvent = 0;  // 이벤트 카운터 초기화
+  
+  auto analysisManager = G4AnalysisManager::Instance();
+  if (!analysisManager->IsOpenFile()) {
+    G4String fileName = fFileName + "_nt_SiPM.csv";
+    analysisManager->OpenFile(fileName);
+    G4cout << "Reopened file: " << fileName << G4endl;
+  }
 }
 
 void RunAction::ResetRunVariables()
@@ -94,6 +89,16 @@ void RunAction::ResetRunVariables()
 
 void RunAction::EndOfRunAction(const G4Run* run)
 {
+  G4cout << "End of run action" << G4endl;
+  auto analysisManager = G4AnalysisManager::Instance();
+  
+  if (analysisManager->IsOpenFile()) {
+    analysisManager->Write();
+    G4cout << "Writing final data to file..." << G4endl;
+    analysisManager->CloseFile(true);  // true: 파일을 강제로 닫음
+    G4cout << "File closed." << G4endl;
+  }
+  
   ProcessEndOfRun(run);
   ResetRunVariables();
   printEventproc();
@@ -126,24 +131,28 @@ void RunAction::SaveEventData(const G4int sipmCounts[40], G4double x, G4double y
 {
   auto analysisManager = G4AnalysisManager::Instance();
   
-  // 이벤트 ID 저장
-  analysisManager->FillNtupleIColumn(0, fEvent);
-  
-  // SiPM 데이터 저장
-  for(int i = 0; i < 40; ++i) {
-    analysisManager->FillNtupleIColumn(i+1, sipmCounts[i]);
+  try {
+    analysisManager->FillNtupleIColumn(0, fEvent);
+    
+    for(int i = 0; i < 40; ++i) {
+      analysisManager->FillNtupleIColumn(i + 1, sipmCounts[i]);
+    }
+    
+    analysisManager->FillNtupleDColumn(41, x/mm);
+    analysisManager->FillNtupleDColumn(42, y/mm);
+    analysisManager->FillNtupleDColumn(43, z/mm);
+    
+    analysisManager->AddNtupleRow(0);
+    analysisManager->Write();
+    
+    fEvent++;
+    
+  } catch (const std::exception& e) {
+    G4ExceptionDescription msg;
+    msg << "Error saving event data: " << e.what();
+    G4Exception("RunAction::SaveEventData",
+                "MyCode0001", FatalException, msg);
   }
-  
-  // 뮤온 시작 위치 저장
-  analysisManager->FillNtupleDColumn(41, x);
-  analysisManager->FillNtupleDColumn(42, y);
-  analysisManager->FillNtupleDColumn(43, z);
-  
-  // 행 추가
-  analysisManager->AddNtupleRow();
-  
-  // 이벤트 카운터 증가
-  fEvent++;
 }
 
 void RunAction::printEventproc()

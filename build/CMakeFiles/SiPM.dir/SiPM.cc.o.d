@@ -1284,5 +1284,7 @@ CMakeFiles/SiPM.dir/SiPM.cc.o: /Users/kimkuhani/SiPM_array/SiPM.cc \
   /opt/geant4-v10.7.4/install/include/Geant4/G4MaterialCutsCouple.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4ProductionCuts.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4MCCIndexConversionTable.hh \
+  /opt/geant4-v10.7.4/install/include/Geant4/G4OpticalPhysics.hh \
+  /opt/geant4-v10.7.4/install/include/Geant4/G4OpticalParameters.hh \
   /Users/kimkuhani/SiPM_array/include/ActionInitialization.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserActionInitialization.hh

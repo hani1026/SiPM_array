@@ -21,6 +21,7 @@ public:
   
   virtual G4VPhysicalVolume* Construct() override;
   G4LogicalVolume* GetSiPMVolume() const { return flogical_SiPM; }
+  void ConstructSiPM();
 
 private:
   void DefineMaterials();
@@ -53,6 +54,7 @@ private:
   G4VPhysicalVolume* fPhysical_PS;
   G4VPhysicalVolume* fPhysical_ESR;
   G4VPhysicalVolume* fPhysical_SiPM;
+  G4double fSiPMPositions[40][3];
 };
 
 #endif

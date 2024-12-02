@@ -23,6 +23,8 @@ public:
   void AddPhotonPosition(const G4ThreeVector& pos) {
     fPhotonPositions.push_back(pos);
   }
+  void AddDelayedCount_SiPM(G4int sipmID, G4double delay);
+  void ProcessDelayedCounts();
 
 private:
   // 초기화 메서드
@@ -46,6 +48,12 @@ private:
   G4double fStartZ;
   G4double fPhotonCount;
   G4int f_SiPM_Count[40];
+  struct DelayedCount {
+    G4int sipmID;
+    G4double time;
+  };
+  std::vector<DelayedCount> fDelayedCounts;
+  G4double fDarkNoiseRate;  // Hz/mm^2
 };
 
 #endif

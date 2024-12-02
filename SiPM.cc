@@ -34,17 +34,31 @@ int main(int argc, char** argv)
   // 난수 시드 설정
   G4Random::setTheSeed(seedNum);
 
-  // Run 매니저 초기화
-  auto* runManager = new G4RunManager();
+  // Run 매니저 초기화 전에 예외 처리 추가
+  auto* runManager = G4RunManager::GetRunManager();
+  if (!runManager) {
+    runManager = new G4RunManager();
+  }
+  
+  try {
+    // 검출기 구성
+    auto* detConstruction = new MyDetectorConstruction();
+    runManager->SetUserInitialization(detConstruction);
 
-  // 검출기 구성
-  runManager->SetUserInitialization(new MyDetectorConstruction());
+    // 물리 프로세스 설정
+    auto* physicsList = new PhysicsList();
+    runManager->SetUserInitialization(physicsList);
 
-  // 물리 프로세스 설정
-  runManager->SetUserInitialization(new MyPhysicsList());
-
-  // 액션 초기화
-  runManager->SetUserInitialization(new ActionInitialization(outputFileName));
+    // 액션 초기화
+    runManager->SetUserInitialization(new ActionInitialization(outputFileName));
+    
+    runManager->Initialize();
+    
+  } catch (const std::exception& e) {
+    G4cerr << "Exception caught: " << e.what() << G4endl;
+    delete runManager;
+    return 1;
+  }
 
   // 시각화 매니저 설정
   auto* visManager = new G4VisExecutive();
