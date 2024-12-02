@@ -13,8 +13,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o.d"
   "CMakeFiles/SiPM.dir/src/RunAction.cc.o"
   "CMakeFiles/SiPM.dir/src/RunAction.cc.o.d"
-  "CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o"
-  "CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o.d"
   "CMakeFiles/SiPM.dir/src/SteppingAction.cc.o"
   "CMakeFiles/SiPM.dir/src/SteppingAction.cc.o.d"
   "SiPM"

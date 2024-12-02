@@ -20,68 +20,37 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* step)
 {
-  // 광자인 경우에만 SiPM 히트 처리
-  if (IsOpticalPhoton(step)) {
-    ProcessSiPMHit(step);
-  }
-  // 뮤온인 경우에만 시작 위치 기록
-  else if (IsMuon(step)) {
-    RecordStartPosition(step);
-  }
-}
-
-bool SteppingAction::IsOpticalPhoton(const G4Step* step)
-{
   G4Track* track = step->GetTrack();
-  return (track->GetDefinition()->GetParticleName() == "opticalphoton");
-}
+  G4String particleName = track->GetDefinition()->GetParticleName();
 
-bool SteppingAction::IsMuon(const G4Step* step)
-{
-  G4Track* track = step->GetTrack();
-  return (track->GetDefinition()->GetParticleName() == "mu-");
-}
-
-void SteppingAction::ProcessSiPMHit(const G4Step* step)
-{
-  G4VPhysicalVolume* physVol = step->GetPreStepPoint()->GetTouchable()->GetVolume();
-  G4String volumeName = physVol->GetName();
-
-  if(volumeName.substr(0,4) != "SiPM") return;
-
-  if (volumeName.length() < 5) {
-    ReportInvalidSiPMName(volumeName);
+  // 뮤온인 경우 시작 위치 기록
+  if (particleName == "mu-") {
+    if(track->GetCurrentStepNumber() == 1) {
+      G4ThreeVector startPos = track->GetVertexPosition();
+      fEventAction->AddStartPosition(startPos.x(), startPos.y(), startPos.z());
+    }
     return;
   }
 
+  // 광자가 아닌 경우 무시
+  if (particleName != "opticalphoton") return;
+
+  // 볼륨 이름 확인
+  G4VPhysicalVolume* physVol = step->GetPreStepPoint()->GetTouchable()->GetVolume();
+  G4String volumeName = physVol->GetName();
+
+  // SiPM 볼륨인 경우에만 처리
+  if(volumeName.substr(0,4) != "SiPM") return;
+
   try {
     G4int sipmID = std::stoi(volumeName.substr(5));
-    if(IsValidSiPMID(sipmID)) {
+    if(sipmID >= 0 && sipmID < 40) {
       fEventAction->AddCount_SiPM(sipmID);
     }
   } catch (const std::exception& e) {
-    ReportInvalidSiPMName(volumeName);
-  }
-}
-
-bool SteppingAction::IsValidSiPMID(G4int sipmID)
-{
-  return (sipmID >= 0 && sipmID < 40);
-}
-
-void SteppingAction::ReportInvalidSiPMName(const G4String& volumeName)
-{
-  G4ExceptionDescription msg;
-  msg << "Invalid SiPM volume name: " << volumeName;
-  G4Exception("SteppingAction::ProcessSiPMHit",
-              "MyCode001", JustWarning, msg);
-}
-
-void SteppingAction::RecordStartPosition(const G4Step* step)
-{
-  G4Track* track = step->GetTrack();
-  if(track->GetCurrentStepNumber() == 1) {
-    G4ThreeVector startPos = track->GetVertexPosition();
-    fEventAction->AddStartPosition(startPos.x(), startPos.y(), startPos.z());
+    G4ExceptionDescription msg;
+    msg << "Invalid SiPM volume name: " << volumeName;
+    G4Exception("SteppingAction::UserSteppingAction",
+                "MyCode001", JustWarning, msg);
   }
 }

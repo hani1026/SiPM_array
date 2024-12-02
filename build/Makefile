@@ -297,30 +297,6 @@ src/RunAction.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiPM.dir/build.make CMakeFiles/SiPM.dir/src/RunAction.cc.s
 .PHONY : src/RunAction.cc.s
 
-src/SiPMSensitiveDetector.o: src/SiPMSensitiveDetector.cc.o
-.PHONY : src/SiPMSensitiveDetector.o
-
-# target to build an object file
-src/SiPMSensitiveDetector.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiPM.dir/build.make CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o
-.PHONY : src/SiPMSensitiveDetector.cc.o
-
-src/SiPMSensitiveDetector.i: src/SiPMSensitiveDetector.cc.i
-.PHONY : src/SiPMSensitiveDetector.i
-
-# target to preprocess a source file
-src/SiPMSensitiveDetector.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiPM.dir/build.make CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.i
-.PHONY : src/SiPMSensitiveDetector.cc.i
-
-src/SiPMSensitiveDetector.s: src/SiPMSensitiveDetector.cc.s
-.PHONY : src/SiPMSensitiveDetector.s
-
-# target to generate assembly for a file
-src/SiPMSensitiveDetector.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiPM.dir/build.make CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.s
-.PHONY : src/SiPMSensitiveDetector.cc.s
-
 src/SteppingAction.o: src/SteppingAction.cc.o
 .PHONY : src/SteppingAction.o
 
@@ -375,9 +351,6 @@ help:
 	@echo "... src/RunAction.o"
 	@echo "... src/RunAction.i"
 	@echo "... src/RunAction.s"
-	@echo "... src/SiPMSensitiveDetector.o"
-	@echo "... src/SiPMSensitiveDetector.i"
-	@echo "... src/SiPMSensitiveDetector.s"
 	@echo "... src/SteppingAction.o"
 	@echo "... src/SteppingAction.i"
 	@echo "... src/SteppingAction.s"

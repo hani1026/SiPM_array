@@ -1348,16 +1348,6 @@ CMakeFiles/SiPM.dir/src/ActionInitialization.cc.o: \
   /Users/kimkuhani/SiPM_array/include/EventAction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4UserEventAction.hh \
   /Users/kimkuhani/SiPM_array/include/SteppingAction.hh \
-  /Users/kimkuhani/SiPM_array/include/SiPMSensitiveDetector.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4VSensitiveDetector.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4VHit.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4VReadOutGeometry.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4SensitiveVolumeList.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4CollectionNameVector.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4VSDFilter.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4SDManager.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4SDStructure.hh \
-  /opt/geant4-v10.7.4/install/include/Geant4/G4HCtable.hh \
   /Users/kimkuhani/SiPM_array/include/Construction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4VUserDetectorConstruction.hh \
   /opt/geant4-v10.7.4/install/include/Geant4/G4PVPlacement.hh \

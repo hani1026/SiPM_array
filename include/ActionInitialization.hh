@@ -7,7 +7,6 @@
 
 class RunAction;
 class EventAction;
-class SiPMSensitiveDetector;
 
 class ActionInitialization : public G4VUserActionInitialization {
 public:
@@ -22,8 +21,6 @@ private:
   RunAction* SetupRunAction() const;
   EventAction* SetupEventAction(RunAction* runAction) const;
   void SetupSteppingAction(EventAction* eventAction) const;
-  void SetupSensitiveDetector(EventAction* eventAction) const;
-  void AssignSensitiveDetector(SiPMSensitiveDetector* sipmSD) const;
 
   G4String fFileName;
 };

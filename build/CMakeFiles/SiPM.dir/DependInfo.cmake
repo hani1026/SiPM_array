@@ -15,7 +15,6 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/kimkuhani/SiPM_array/src/PhysicsList.cc" "CMakeFiles/SiPM.dir/src/PhysicsList.cc.o" "gcc" "CMakeFiles/SiPM.dir/src/PhysicsList.cc.o.d"
   "/Users/kimkuhani/SiPM_array/src/PrimaryGeneratorAction.cc" "CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o" "gcc" "CMakeFiles/SiPM.dir/src/PrimaryGeneratorAction.cc.o.d"
   "/Users/kimkuhani/SiPM_array/src/RunAction.cc" "CMakeFiles/SiPM.dir/src/RunAction.cc.o" "gcc" "CMakeFiles/SiPM.dir/src/RunAction.cc.o.d"
-  "/Users/kimkuhani/SiPM_array/src/SiPMSensitiveDetector.cc" "CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o" "gcc" "CMakeFiles/SiPM.dir/src/SiPMSensitiveDetector.cc.o.d"
   "/Users/kimkuhani/SiPM_array/src/SteppingAction.cc" "CMakeFiles/SiPM.dir/src/SteppingAction.cc.o" "gcc" "CMakeFiles/SiPM.dir/src/SteppingAction.cc.o.d"
   )
 
