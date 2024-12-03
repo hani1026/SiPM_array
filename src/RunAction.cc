@@ -20,8 +20,7 @@ RunAction::RunAction(G4String fileName)
     nofEvents(0),
     fStartX(0.0),
     fStartY(0.0),
-    fStartZ(0.0),
-    fPhotonCount(0)
+    fStartZ(0.0)
 {
   // Analysis manager 초기화
   auto analysisManager = G4AnalysisManager::Instance();
@@ -40,7 +39,9 @@ RunAction::RunAction(G4String fileName)
   // SiPM 채널
   for(G4int i = 0; i < 40; i++) {
     G4String colName = "SiPM_" + std::to_string(i);
+    G4String timeName = "SiPM_Time_" + std::to_string(i);
     analysisManager->CreateNtupleIColumn(colName);  // columns 1-40
+    analysisManager->CreateNtupleDColumn(timeName);  // 시간 컬럼 추가
   }
   
   // 위치 정보
@@ -82,7 +83,6 @@ void RunAction::ResetRunVariables()
   fStartX = 0.0;
   fStartY = 0.0;
   fStartZ = 0.0;
-  fPhotonCount = 0.0;
   fPhotonPositions.clear();
   std::fill_n(f_SiPM_Count, 40, 0);
 }
@@ -127,7 +127,8 @@ void RunAction::PrintRunSummary()
          << G4endl;
 }
 
-void RunAction::SaveEventData(const G4int sipmCounts[40], G4double x, G4double y, G4double z)
+void RunAction::SaveEventData(const G4int sipmCounts[40], const G4double avgTimes[40],
+                            G4double x, G4double y, G4double z)
 {
   auto analysisManager = G4AnalysisManager::Instance();
   
@@ -135,12 +136,13 @@ void RunAction::SaveEventData(const G4int sipmCounts[40], G4double x, G4double y
     analysisManager->FillNtupleIColumn(0, fEvent);
     
     for(int i = 0; i < 40; ++i) {
-      analysisManager->FillNtupleIColumn(i + 1, sipmCounts[i]);
+      analysisManager->FillNtupleIColumn(2*i + 1, sipmCounts[i]);
+      analysisManager->FillNtupleDColumn(2*i + 2, avgTimes[i]/ns);  // ns 단위로 저장
     }
     
-    analysisManager->FillNtupleDColumn(41, x/mm);
-    analysisManager->FillNtupleDColumn(42, y/mm);
-    analysisManager->FillNtupleDColumn(43, z/mm);
+    analysisManager->FillNtupleDColumn(81, x/mm);
+    analysisManager->FillNtupleDColumn(82, y/mm);
+    analysisManager->FillNtupleDColumn(83, z/mm);
     
     analysisManager->AddNtupleRow(0);
     analysisManager->Write();

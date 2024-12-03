@@ -10,7 +10,6 @@ EventAction::EventAction(RunAction* runAction)
     fStartX(0.0),
     fStartY(0.0),
     fStartZ(0.0),
-    fPhotonCount(0.0),
     fDarkNoiseRate(100.0)  // 100 kHz/mm² @ 25°C
 {
   ResetEventVariables();
@@ -30,36 +29,29 @@ void EventAction::ResetEventVariables()
   G4cout << "Resetting event variables" << G4endl;
   for(int i = 0; i < 40; i++) {
     f_SiPM_Count[i] = 0;
+    f_SiPM_TimeSum[i] = 0.0;
   }
   fStartX = 0.0;
   fStartY = 0.0;
   fStartZ = 0.0;
-  fPhotonCount = 0;
   fDelayedCounts.clear();
 }
 
 void EventAction::EndOfEventAction(const G4Event*)
 {
-  G4int totalCounts = 0;
+  G4double averageTimes[40];
   for(int i = 0; i < 40; i++) {
-    totalCounts += f_SiPM_Count[i];
+    averageTimes[i] = (f_SiPM_Count[i] > 0) ? 
+                      f_SiPM_TimeSum[i] / f_SiPM_Count[i] : 0.0;
   }
   
-  fRunAction->SaveEventData(f_SiPM_Count, fStartX, fStartY, fStartZ);
+  fRunAction->SaveEventData(f_SiPM_Count, averageTimes, fStartX, fStartY, fStartZ);
   ResetEventVariables();
 
   // 타이밍 정보 추가
   std::vector<G4double> hitTimes;
   for(const auto& delayedCount : fDelayedCounts) {
     hitTimes.push_back(delayedCount.time);
-  }
-  
-  // 에너지 분해능 시뮬레이션
-  G4double totalEnergy = 0;
-  for(int i = 0; i < 40; i++) {
-    G4double resolution = 0.1;  // 10% @ 1MeV
-    G4double sigma = resolution * std::sqrt(f_SiPM_Count[i]);
-    f_SiPM_Count[i] = G4int(G4RandGauss::shoot(f_SiPM_Count[i], sigma));
   }
 }
 
@@ -68,7 +60,6 @@ void EventAction::AddStartPosition(G4double x, G4double y, G4double z)
   fStartX = x;
   fStartY = y;
   fStartZ = z;
-  G4cout << "Added start position: (" << x << ", " << y << ", " << z << ")" << G4endl;
 }
 
 void EventAction::UpdateRunAction()
@@ -88,35 +79,15 @@ void EventAction::PrintEventProgress()
   fRunAction->printEventproc();
 }
 
-void EventAction::AddCount_SiPM(G4int sipmID)
+void EventAction::AddCount_SiPM(G4int sipmID, G4double time)
 {
-  if (IsValidSiPMID(sipmID)) {
-    f_SiPM_Count[sipmID]++;
-  } else {
-    ReportInvalidSiPMID(sipmID);
-  }
-}
-
-bool EventAction::IsValidSiPMID(G4int sipmID)
-{
-  return (sipmID >= 0 && sipmID < 40);
-}
-
-void EventAction::ReportInvalidSiPMID(G4int sipmID)
-{
-  G4ExceptionDescription msg;
-  msg << "Invalid SiPM ID: " << sipmID;
-  G4Exception("EventAction::AddCount_SiPM",
-              "MyCode003", JustWarning, msg);
+  f_SiPM_Count[sipmID]++;
+  f_SiPM_TimeSum[sipmID] += time;
 }
 
 void EventAction::AddDelayedCount_SiPM(G4int sipmID, G4double delay)
 {
-  if(IsValidSiPMID(sipmID)) {
-    fDelayedCounts.push_back({sipmID, delay});
-  } else {
-    ReportInvalidSiPMID(sipmID);
-  }
+  fDelayedCounts.push_back({sipmID, delay});
 }
 
 void EventAction::ProcessDelayedCounts()
@@ -131,7 +102,7 @@ void EventAction::ProcessDelayedCounts()
             
   // 지연된 카운트 처리
   for(const auto& count : fDelayedCounts) {
-    AddCount_SiPM(count.sipmID);
+    AddCount_SiPM(count.sipmID, count.time);
   }
   fDelayedCounts.clear();
 }

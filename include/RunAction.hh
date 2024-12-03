@@ -24,14 +24,14 @@ public:
   void printEventproc();
   
   // 이벤트 데이터 저장을 위한 새로운 메서드
-  void SaveEventData(const G4int sipmCounts[40], G4double x, G4double y, G4double z);
+  void SaveEventData(const G4int sipmCounts[40], const G4double avgTimes[40],
+                    G4double x, G4double y, G4double z);
 
   // 데이터 추가 메서드
   void AddStartPosition(G4double x, G4double y, G4double z) {
     fStartX += x;
     fStartY += y;
     fStartZ += z;
-    fPhotonCount += 1;
   }
   
   void AddPhotonPosition(const G4ThreeVector& pos) {
@@ -65,7 +65,6 @@ private:
   G4double fStartX;
   G4double fStartY;
   G4double fStartZ;
-  G4double fPhotonCount;
   
   std::vector<G4ThreeVector> fPhotonPositions;
   G4int f_SiPM_Count[40];

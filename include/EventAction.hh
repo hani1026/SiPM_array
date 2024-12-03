@@ -18,7 +18,7 @@ public:
   virtual void EndOfEventAction(const G4Event*) override;
 
   // 데이터 추가 메서드
-  void AddCount_SiPM(G4int sipmID);
+  void AddCount_SiPM(G4int sipmID, G4double time);
   void AddStartPosition(G4double x, G4double y, G4double z);
   void AddPhotonPosition(const G4ThreeVector& pos) {
     fPhotonPositions.push_back(pos);
@@ -46,8 +46,8 @@ private:
   G4double fStartX;
   G4double fStartY;
   G4double fStartZ;
-  G4double fPhotonCount;
   G4int f_SiPM_Count[40];
+  G4double f_SiPM_TimeSum[40];
   struct DelayedCount {
     G4int sipmID;
     G4double time;

@@ -27,18 +27,12 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     if (postStepPoint) {
       G4VPhysicalVolume* postVolume = postStepPoint->GetPhysicalVolume();
       if (postVolume && IsSiPMVolume(postVolume->GetName())) {
-        try {
-          G4String volName = postVolume->GetName();
-          G4int sipmID = std::stoi(volName.substr(5));
-          if (sipmID >= 0 && sipmID < 40) {
-            fEventAction->AddCount_SiPM(sipmID);
-            track->SetTrackStatus(fStopAndKill);
-          }
-        } catch (const std::exception& e) {
-          G4ExceptionDescription msg;
-          msg << "Error processing SiPM ID: " << e.what();
-          G4Exception("SteppingAction::UserSteppingAction",
-                     "MyCode001", JustWarning, msg);
+        G4String volName = postVolume->GetName(); 
+        G4int sipmID = std::stoi(volName.substr(5));
+        if (sipmID >= 0 && sipmID < 40) {
+          G4double hitTime = postStepPoint->GetGlobalTime();
+          fEventAction->AddCount_SiPM(sipmID, hitTime);
+          track->SetTrackStatus(fStopAndKill);
         }
       }
     }
@@ -66,12 +60,12 @@ G4bool SteppingAction::SimulateSiPMResponse(const G4Step* step)
   
   // 온도에 따른 PDE 보정
   G4double temperature = 293.15*kelvin;  // 작동 온도
-  G4double referenceTemp = 298.15*kelvin;  // 데이터시트 기준 온도
+  G4double referenceTemp = 293.15*kelvin;  // 데이터시트 기준 온도
   G4double tempCoeff = -0.0016;  // PDE 온도 계수
   G4double tempCorrection = 1.0 + tempCoeff * (temperature - referenceTemp);
   
   // 과전압 효과 추가
-  G4double overVoltage = 3.0*volt;  // 동작 과전압
+  G4double overVoltage = 2.7*volt;  // 동작 과전압
   G4double nominalVoltage = 2.7*volt;  // 권장 과전압
   G4double voltageCoeff = 0.1;  // 과전압 계수
   G4double voltageCorrection = 1.0 + voltageCoeff * (overVoltage - nominalVoltage);
@@ -86,7 +80,8 @@ G4bool SteppingAction::SimulateSiPMResponse(const G4Step* step)
 
   // 크로스토크 시뮬레이션 (3% 확률, S13360-6075PE 데이터시트 기준)
   if(G4UniformRand() < 0.03) {
-    fEventAction->AddCount_SiPM(GetSiPMID(step));  // 추가 펄스
+    G4double hitTime = step->GetPostStepPoint()->GetGlobalTime();
+    fEventAction->AddCount_SiPM(GetSiPMID(step), hitTime);  // 추가 펄스
   }
 
   // 애프터펄싱 시뮬레이션 (약 3% 확률)
@@ -111,17 +106,8 @@ G4int SteppingAction::GetSiPMID(const G4Step* step) const
   // SiPM 볼륨의 이름에서 ID 추출
   G4VPhysicalVolume* physVol = step->GetPreStepPoint()->GetTouchable()->GetVolume();
   G4String volumeName = physVol->GetName();
-  
-  try {
-    // "SiPM_XX" 형식에서 XX 부분을 정수로 변환
-    return std::stoi(volumeName.substr(5));
-  } catch (const std::exception& e) {
-    G4ExceptionDescription msg;
-    msg << "Invalid SiPM volume name format: " << volumeName;
-    G4Exception("SteppingAction::GetSiPMID",
-                "MyCode002", JustWarning, msg);
-    return -1;
-  }
+
+  return std::stoi(volumeName.substr(5));
 }
 
 // 다른 유틸리티 함수들도 구현
@@ -138,14 +124,6 @@ bool SteppingAction::IsMuon(const G4Step* step) const
 bool SteppingAction::IsSiPMVolume(const G4String& volumeName) const
 {
   return (volumeName.substr(0,4) == "SiPM");
-}
-
-void SteppingAction::ReportInvalidSiPMName(const G4String& volumeName) const
-{
-  G4ExceptionDescription msg;
-  msg << "Invalid SiPM volume name: " << volumeName;
-  G4Exception("SteppingAction::IsSiPMVolume",
-              "MyCode003", JustWarning, msg);
 }
 
 void SteppingAction::RecordStartPosition(const G4Step* step)

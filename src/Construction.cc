@@ -422,20 +422,3 @@ void MyDetectorConstruction::SetupVisualizationAttributes()
   fVisAttributes.push_back(psVisAtt);
   fVisAttributes.push_back(sipmVisAtt);
 }
-
-void MyDetectorConstruction::ConstructSiPM()
-{
-  // SiPM 크기 정의 (S13360-6075PE 기준)
-  G4double sipm_xy = 6.0*mm;  // 6.0 x 6.0 mm active area
-  G4double sipm_z = 1.0*mm;   // 두께
-
-  // SiPM 위치 설정
-  G4cout << "SiPM positions:" << G4endl;
-  for(G4int i=0; i<40; i++) {
-    G4double x = fSiPMPositions[i][0];
-    G4double y = fSiPMPositions[i][1];
-    G4double z = fSiPMPositions[i][2];
-    G4cout << "SiPM_" << i << ": (" 
-           << x/mm << ", " << y/mm << ", " << z/mm << ") mm" << G4endl;
-  }
-}

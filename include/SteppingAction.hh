@@ -31,7 +31,6 @@ private:
   
   // 볼륨 관련 함수들
   bool IsSiPMVolume(const G4String& volumeName) const;
-  void ReportInvalidSiPMName(const G4String& volumeName) const;
   
   // 위치 기록 함수
   void RecordStartPosition(const G4Step* step);
