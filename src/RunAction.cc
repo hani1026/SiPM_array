@@ -24,7 +24,7 @@ RunAction::RunAction(G4String fileName)
 {
   // Analysis manager 초기화
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager->SetVerboseLevel(2);  // 더 자세한 디버그 출력
+  analysisManager->SetVerboseLevel(0);  // 더 자세한 디버그 출력
   
   // CSV 출력 설정
   analysisManager->SetNtupleDirectoryName(".");
@@ -52,7 +52,7 @@ RunAction::RunAction(G4String fileName)
   analysisManager->FinishNtuple();
   
   // 파일 열기
-  G4String fileNameFull = fileName + "_nt_SiPM.csv";
+  G4String fileNameFull = fileName + ".csv";
   analysisManager->OpenFile(fileNameFull);
   G4cout << "Created and opened output file: " << fileNameFull << G4endl;
 }
@@ -72,7 +72,7 @@ void RunAction::BeginOfRunAction(const G4Run*)
   
   auto analysisManager = G4AnalysisManager::Instance();
   if (!analysisManager->IsOpenFile()) {
-    G4String fileName = fFileName + "_nt_SiPM.csv";
+    G4String fileName = fFileName + ".csv";
     analysisManager->OpenFile(fileName);
     G4cout << "Reopened file: " << fileName << G4endl;
   }
@@ -83,7 +83,6 @@ void RunAction::ResetRunVariables()
   fStartX = 0.0;
   fStartY = 0.0;
   fStartZ = 0.0;
-  fPhotonPositions.clear();
   std::fill_n(f_SiPM_Count, 40, 0);
 }
 
@@ -131,31 +130,24 @@ void RunAction::SaveEventData(const G4int sipmCounts[40], const G4double avgTime
                             G4double x, G4double y, G4double z)
 {
   auto analysisManager = G4AnalysisManager::Instance();
-  
-  try {
-    analysisManager->FillNtupleIColumn(0, fEvent);
+
+  analysisManager->FillNtupleIColumn(0, fEvent);
     
-    for(int i = 0; i < 40; ++i) {
-      analysisManager->FillNtupleIColumn(2*i + 1, sipmCounts[i]);
-      analysisManager->FillNtupleDColumn(2*i + 2, avgTimes[i]/ns);  // ns 단위로 저장
-    }
-    
-    analysisManager->FillNtupleDColumn(81, x/mm);
-    analysisManager->FillNtupleDColumn(82, y/mm);
-    analysisManager->FillNtupleDColumn(83, z/mm);
-    
-    analysisManager->AddNtupleRow(0);
-    analysisManager->Write();
-    
-    fEvent++;
-    
-  } catch (const std::exception& e) {
-    G4ExceptionDescription msg;
-    msg << "Error saving event data: " << e.what();
-    G4Exception("RunAction::SaveEventData",
-                "MyCode0001", FatalException, msg);
+  for(int i = 0; i < 40; ++i) {
+    analysisManager->FillNtupleIColumn(2*i + 1, sipmCounts[i]);
+    analysisManager->FillNtupleDColumn(2*i + 2, avgTimes[i]/ns);  // ns 단위로 저장
   }
+    
+  analysisManager->FillNtupleDColumn(81, x/mm);
+  analysisManager->FillNtupleDColumn(82, y/mm);
+  analysisManager->FillNtupleDColumn(83, z/mm);
+    
+  analysisManager->AddNtupleRow(0);
+  analysisManager->Write();
+    
+  fEvent++;
 }
+
 
 void RunAction::printEventproc()
 {

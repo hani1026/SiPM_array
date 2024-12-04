@@ -9,8 +9,7 @@ EventAction::EventAction(RunAction* runAction)
     fRunAction(runAction),
     fStartX(0.0),
     fStartY(0.0),
-    fStartZ(0.0),
-    fDarkNoiseRate(100.0)  // 100 kHz/mm² @ 25°C
+    fStartZ(0.0)
 {
   ResetEventVariables();
 }
@@ -68,9 +67,6 @@ void EventAction::UpdateRunAction()
   fRunAction->AddStartPosition(fStartX, fStartY, fStartZ);
   fRunAction->AddSiPMCounts(f_SiPM_Count);
 
-  for (const auto& pos : fPhotonPositions) {
-    fRunAction->AddPhotonPosition(pos);
-  }
 }
 
 void EventAction::PrintEventProgress()
@@ -79,10 +75,12 @@ void EventAction::PrintEventProgress()
   fRunAction->printEventproc();
 }
 
-void EventAction::AddCount_SiPM(G4int sipmID, G4double time)
-{
-  f_SiPM_Count[sipmID]++;
-  f_SiPM_TimeSum[sipmID] += time;
+void EventAction::AddCount_SiPM(G4int sipmID, G4double time) {
+    // 배열 범위 체크를 비트 연산으로 최적화
+    if (sipmID & ~0x3F) return;  // 40개 이상일 경우 빠른 반환
+    
+    f_SiPM_Count[sipmID]++;
+    f_SiPM_TimeSum[sipmID] += time;
 }
 
 void EventAction::AddDelayedCount_SiPM(G4int sipmID, G4double delay)

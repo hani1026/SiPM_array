@@ -34,10 +34,6 @@ public:
     fStartZ += z;
   }
   
-  void AddPhotonPosition(const G4ThreeVector& pos) {
-    fPhotonPositions.push_back(pos);
-  }
-  
   void AddSiPMCounts(const G4int counts[40]) {
     for(int i = 0; i < 40; ++i) {
       f_SiPM_Count[i] += counts[i];
@@ -66,7 +62,6 @@ private:
   G4double fStartY;
   G4double fStartZ;
   
-  std::vector<G4ThreeVector> fPhotonPositions;
   G4int f_SiPM_Count[40];
 };
 

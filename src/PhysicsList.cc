@@ -37,19 +37,19 @@ PhysicsList::PhysicsList() : G4VModularPhysicsList()
   
   // 광학 물리는 마지막에 등록
   auto optical = new G4OpticalPhysics(0);
-  optical->Configure(kCerenkov, true);
+  optical->Configure(kCerenkov, false);
   optical->Configure(kScintillation, true);
   optical->Configure(kAbsorption, true);
-  optical->Configure(kRayleigh, true);
-  optical->Configure(kMieHG, true);
+  optical->Configure(kRayleigh, false);
+  optical->Configure(kMieHG, false);
   optical->Configure(kBoundary, true);
-  optical->Configure(kWLS, true);
-  optical->SetScintillationYieldFactor(1.0);
-  optical->SetScintillationExcitationRatio(0.0);
-  optical->SetTrackSecondariesFirst(kScintillation, true);
-  optical->SetMaxNumPhotonsPerStep(100);
-  optical->SetMaxBetaChangePerStep(10.0);
-  optical->SetTrackSecondariesFirst(kCerenkov, true);
+  optical->Configure(kWLS, false);
+  opticalParams->SetScintYieldFactor(1.0);
+  opticalParams->SetScintExcitationRatio(0.0);
+  opticalParams->SetScintTrackSecondariesFirst(true);
+  opticalParams->SetCerenkovMaxPhotonsPerStep(100);
+  opticalParams->SetCerenkovMaxBetaChange(10.0);
+  opticalParams->SetCerenkovTrackSecondariesFirst(false);
   RegisterPhysics(optical);
   
   // 하드로닉 프로세스 출력 레벨 설정
@@ -64,18 +64,21 @@ void PhysicsList::SetCuts()
   SetCutsWithDefault();
   
   // 입자별 컷 설정
-  SetCutValue(defaultCutValue, "gamma");
-  SetCutValue(defaultCutValue, "e-");
-  SetCutValue(defaultCutValue, "e+");
-  SetCutValue(defaultCutValue, "proton");
-  SetCutValue(0.1*mm, "mu-");
-  SetCutValue(0.1*mm, "mu+");
+  SetCutValue(1.0*mm, "gamma");
+  SetCutValue(1.0*mm, "e-");
+  SetCutValue(1.0*mm, "e+");
+  SetCutValue(1.0*mm, "proton");
+  SetCutValue(1.0*mm, "mu-");
+  SetCutValue(1.0*mm, "mu+");
 }
 
 void PhysicsList::ConstructProcess()
 {
   // 기본 프로세스 구성
   G4VModularPhysicsList::ConstructProcess();
+  
+  // 하드로닉 프로세스 출력 완전 억제
+  G4HadronicProcessStore::Instance()->SetVerbose(0);
   
   // EM 파라미터 설정
   G4EmParameters* emParams = G4EmParameters::Instance();

@@ -11,30 +11,29 @@
 
 int main(int argc, char** argv)
 {
-  // 명령행 인자 처리
-  if (argc < 2) {
-    G4cerr << "Usage: " << argv[0] << " <macro> [output_name] [seed]" << G4endl;
-    return 1;
-  }
-
   // 기본값 설정
   G4String outputFileName = "SiPM";
   G4long seedNum = 42;
-
-  // 선택적 인자 처리
-  if (argc > 2) outputFileName = argv[2];
-  if (argc > 3) seedNum = std::stol(argv[3]);
-
-  // UI 매니저 초기화
   G4UIExecutive* ui = nullptr;
-  if (argc == 1) {
+
+  // 명령행 인자 처리
+  if (argc > 1) {
+    // 배치 모드 처리
+    if (argc < 2) {
+      G4cerr << "배치 모드 사용법: " << argv[0] << " <macro> [output_name] [seed]" << G4endl;
+      return 1;
+    }
+    if (argc > 2) outputFileName = argv[2];
+    if (argc > 3) seedNum = std::stol(argv[3]);
+  } else {
+    // 비주얼 모드
     ui = new G4UIExecutive(argc, argv);
   }
 
   // 난수 시드 설정
   G4Random::setTheSeed(seedNum);
 
-  // Run 매니저 초기화 전에 예외 처리 추가
+  // Run 매니저 초기화
   auto* runManager = G4RunManager::GetRunManager();
   if (!runManager) {
     runManager = new G4RunManager();

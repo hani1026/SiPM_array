@@ -20,9 +20,6 @@ public:
   // 데이터 추가 메서드
   void AddCount_SiPM(G4int sipmID, G4double time);
   void AddStartPosition(G4double x, G4double y, G4double z);
-  void AddPhotonPosition(const G4ThreeVector& pos) {
-    fPhotonPositions.push_back(pos);
-  }
   void AddDelayedCount_SiPM(G4int sipmID, G4double delay);
   void ProcessDelayedCounts();
 
@@ -42,7 +39,6 @@ private:
 
   // 멤버 변수
   RunAction* fRunAction;
-  std::vector<G4ThreeVector> fPhotonPositions;
   G4double fStartX;
   G4double fStartY;
   G4double fStartZ;
@@ -53,7 +49,6 @@ private:
     G4double time;
   };
   std::vector<DelayedCount> fDelayedCounts;
-  G4double fDarkNoiseRate;  // Hz/mm^2
 };
 
 #endif

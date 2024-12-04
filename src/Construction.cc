@@ -76,24 +76,20 @@ void MyDetectorConstruction::SetMaterialProperties()
   std::fill_n(ABSORPTION_PlasticSc, NUMENTRIES, 380*cm);
   
   // EJ-200의 발광 스펙트럼 정의
-  const G4int NUMENTRIES_SCINT = 18;
+  const G4int NUMENTRIES_SCINT = 9;
   G4double SCINT_Energy[NUMENTRIES_SCINT] = {
-    2.27*eV, 2.38*eV, 2.48*eV, 2.58*eV, 2.68*eV, 2.75*eV, 
-    2.82*eV, 2.88*eV, 2.95*eV, 3.02*eV, 3.10*eV, 3.18*eV,
-    3.26*eV, 3.35*eV, 3.44*eV, 3.54*eV, 3.64*eV, 3.75*eV
+    2.27*eV, 2.48*eV, 2.68*eV, 2.88*eV, 3.10*eV,
+    3.26*eV, 3.44*eV, 3.64*eV, 3.75*eV
   };
   
-  // EJ-200의 상대적 발광 강도 (425nm에서 최대)
   G4double SCINT_FAST[NUMENTRIES_SCINT] = {
-    0.02, 0.05, 0.10, 0.20, 0.40, 0.65, 
-    0.85, 1.00, 0.95, 0.80, 0.63, 0.45,
-    0.30, 0.17, 0.08, 0.03, 0.01, 0.00
+    0.1, 0.3, 0.6, 0.9, 1.0,
+    0.8, 0.5, 0.2, 0.1
   };
 
   G4double SCINT_SLOW[NUMENTRIES_SCINT] = {
-    0.01, 0.02, 0.03, 0.05, 0.10, 0.16, 
-    0.21, 0.25, 0.24, 0.20, 0.16, 0.11,
-    0.08, 0.04, 0.02, 0.01, 0.00, 0.00
+    0.01, 0.03, 0.10, 0.21, 0.24,
+    0.16, 0.08, 0.02, 0.00
   };
 
   // EJ-200 특성
@@ -145,19 +141,15 @@ void MyDetectorConstruction::SetMaterialProperties()
   fSiPM_Mat->SetMaterialPropertiesTable(SiPM_mt);  // fSiPM_Mat는 SiPM 물질
 
   // SiPM 광학 특성 설정 (파장에 따른 PDE 반영)
-  const G4int NUMENTRIES_PDE = 21;
+  const G4int NUMENTRIES_PDE = 9;
   G4double PDE_Energy[NUMENTRIES_PDE] = {
-      1.77*eV, 1.88*eV, 2.00*eV, 2.13*eV, 2.27*eV, 2.43*eV,
-      2.58*eV, 2.76*eV, 2.95*eV, 3.10*eV, 3.26*eV, 3.44*eV,
-      3.54*eV, 3.65*eV, 3.76*eV, 3.87*eV, 4.00*eV, 4.13*eV,
-      4.27*eV, 4.42*eV, 4.59*eV
+      1.77*eV, 2.13*eV, 2.58*eV, 2.95*eV, 3.26*eV,
+      3.54*eV, 3.87*eV, 4.27*eV, 4.59*eV
   };
 
   G4double PDE_Efficiency[NUMENTRIES_PDE] = {
-      0.08, 0.12, 0.15, 0.19, 0.24, 0.30,
-      0.35, 0.38, 0.40, 0.39, 0.37, 0.34,
-      0.30, 0.25, 0.20, 0.15, 0.10, 0.07,
-      0.05, 0.03, 0.02
+      0.08, 0.19, 0.35, 0.40, 0.37,
+      0.30, 0.15, 0.05, 0.02
   };
 
   G4MaterialPropertiesTable* sipmProperties = new G4MaterialPropertiesTable();
@@ -281,12 +273,15 @@ void MyDetectorConstruction::PlaceSiPMDetectors(G4double SD_width)
 
 void MyDetectorConstruction::SetupOpticalSurfaces()
 {
-  // 플라스틱 섬광체 표면
-  auto PSOpticalSurface = new G4OpticalSurface("PSOpticalSurface");
-  PSOpticalSurface->SetType(dielectric_dielectric);
-  PSOpticalSurface->SetModel(unified);  // UNIFIED 모델 사용
-  PSOpticalSurface->SetFinish(groundfrontpainted);  // 연마된 표면이지만 미세 거칠기 존재
-  PSOpticalSurface->SetSigmaAlpha(0.1);  // 미세 거칠기 정도 (rad)
+  // 광학 표면 속성 캐싱
+  static G4OpticalSurface* PSOpticalSurface = nullptr;
+  if (!PSOpticalSurface) {
+    PSOpticalSurface = new G4OpticalSurface("PSOpticalSurface");
+    PSOpticalSurface->SetType(dielectric_dielectric);
+    PSOpticalSurface->SetModel(unified);
+    PSOpticalSurface->SetFinish(groundfrontpainted);
+    PSOpticalSurface->SetSigmaAlpha(0.1);
+  }
   
   // ESR 반사체 표면
   auto ESROpticalSurface = new G4OpticalSurface("ESROpticalSurface");
@@ -295,17 +290,15 @@ void MyDetectorConstruction::SetupOpticalSurfaces()
   ESROpticalSurface->SetFinish(polished);  // ESR은 매우 매끄러운 표면
   
   // 파장에 따른 ESR 반사율 (실제 3M ESR 데이터 기반)
-  const G4int NUM_REFL = 18;
+  const G4int NUM_REFL = 9;
   G4double REFL_energy[NUM_REFL] = {
-    2.27*eV, 2.38*eV, 2.48*eV, 2.58*eV, 2.68*eV, 2.75*eV, 
-    2.82*eV, 2.88*eV, 2.95*eV, 3.02*eV, 3.10*eV, 3.18*eV,
-    3.26*eV, 3.35*eV, 3.44*eV, 3.54*eV, 3.64*eV, 3.75*eV
+    2.27*eV, 2.48*eV, 2.68*eV, 2.88*eV, 3.10*eV,
+    3.26*eV, 3.44*eV, 3.64*eV, 3.75*eV
   };
   
   G4double ESR_reflectivity[NUM_REFL] = {
-    0.988, 0.988, 0.989, 0.989, 0.989, 0.989,
-    0.989, 0.989, 0.989, 0.989, 0.988, 0.988,
-    0.987, 0.987, 0.986, 0.985, 0.984, 0.983
+    0.988, 0.989, 0.989, 0.989, 0.988,
+    0.987, 0.986, 0.984, 0.983
   };  // ESR의 파장별 반사율
   
   G4double ESR_specularlobe[NUM_REFL];
